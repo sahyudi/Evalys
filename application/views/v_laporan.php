@@ -99,25 +99,36 @@
         </thead>
       <tbody>
               <?php
-                $no = 0;
-                $_akhir = 0;  
-                foreach ($test as $view){           
-                  $no ++;
+                $no = 1;  
+                foreach ($test as $view){
                   if ( $view->value == 1){
                         $nilai = "PASSED";
 
                       }elseif ($view->value == 0) {
                         $nilai = "FAILED";
                       }
+                //   $simpan[$no] = $view->crie;
+                // if ($no != 1) {
+                //   # code...
+                
+                //     if ($simpan[$no] != $simpan[$no - 1]) {
+                      
+
+
               ?>
         <tr>
           <td style="padding:7px; text-align: center;"><?= $no ?></td>
-          <td style="padding:7px; padding-left: 5px;"><?= $view->quest?></td>
+          <td style="padding:7px; padding-left: 5px;"><?= $view->crie ?></td>
           <td style="padding:7px; text-align: center;"><b> <?= $nilai ?></b> </td>
           <td style="padding:7px; padding-left: 5px;"><?= $view->remark ?></td>
         </tr>
               <?php
-                } 
+              // }
+              //     }
+               $no ++;  
+
+
+             } 
               ?>
       </tbody>
       </table>

@@ -67,6 +67,12 @@ class EvalController extends CI_Controller {
 		$new_date_ojt = date ('Y-m-d',strtotime($date_ojt));
 		$new_date_eval = date ('Y-m-d',strtotime($date_eval));
 
+		$created_at = date ('Y-m-d H:i:s');
+
+
+
+
+
 			$data = $this->db->query("
 								SELECT due_date FROM public.tb_ojt
 								WHERE tb_ojt.id = '".$id_ojt."'
@@ -78,7 +84,7 @@ class EvalController extends CI_Controller {
 		$nilai_akhir = 0;
 		for ($i=0; $i < count($nilai) ; $i++) {
 			
-			$insert_id2[$i] = $this->M_eval->input_data2($id_user,$id_eval[$i],$nilai[$i],$note[$i],$new_date_eval);
+			$insert_id2[$i] = $this->M_eval->input_data2($id_user,$id_eval[$i],$nilai[$i],$note[$i],$created_at);
 			if ($nilai[$i] == 0){
 				$nilai_akhir ++;
 			}  
@@ -89,9 +95,9 @@ class EvalController extends CI_Controller {
 			}
 		else {
 			$ket = "PASSED";
-			$ex_date = date('d-m-y', strtotime('+'.$due.'year', strtotime( $date_eval )));
+			$ex_date = date('Y-m-d H:i:s', strtotime('+'.$due.'year', strtotime( $date_eval )));
 		}
-		$insert_id = $this->M_eval->input_data($id_ojt, $new_date_ojt, $new_date_eval, $id_ase, $id_ack, $ket, $id_user, $ex_date);
+		$insert_id = $this->M_eval->input_data($id_ojt, $new_date_ojt, $new_date_eval, $id_ase, $id_ack, $ket, $id_user, $ex_date,$created_at);
 		
 
 		echo json_encode(array("status" => TRUE, "msg" => "Data registered successful"));
@@ -115,6 +121,8 @@ class EvalController extends CI_Controller {
 			'view' => $this->M_eval->end_view($id)
 					);
 		$html = $this->load->view('v_laporan', $data);
+		// $data2 = $data['view']->result();
+		// print_r($data2);
 	}
 
 	function view_sio(){

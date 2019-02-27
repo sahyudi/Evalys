@@ -30,7 +30,7 @@
                     <td><?= $no ?></td>
 
                     <td>
-                    <input type="hidden" id="id_eval[]" name="id_eval[]" value="<?= $query->id ?>">
+                    <input type="hidden" id="id_eval[]" name="id_eval[]" value="<?= $query->quest ?>">
                     <?= $query->quest ?></td>
 
                     <td>
