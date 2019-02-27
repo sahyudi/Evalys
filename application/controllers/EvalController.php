@@ -64,8 +64,8 @@ class EvalController extends CI_Controller {
 		$note = $this->input->post('note[]');
 		$id_eval = $this->input->post('id_eval[]');
 
-		$new_date_ojt = date ('d-m-y',strtotime($date_ojt));
-		$new_date_eval = date ('d-m-y',strtotime($date_eval));
+		$new_date_ojt = date ('Y-m-d',strtotime($date_ojt));
+		$new_date_eval = date ('Y-m-d',strtotime($date_eval));
 
 			$data = $this->db->query("
 								SELECT due_date FROM public.tb_ojt
@@ -85,7 +85,7 @@ class EvalController extends CI_Controller {
 		}
 		if ($nilai_akhir > 0){
 				$ket = 'FAILED';
-				$ex_date= $new_date_ojt ;
+				$ex_date= $new_date_eval ;
 			}
 		else {
 			$ket = "PASSED";
