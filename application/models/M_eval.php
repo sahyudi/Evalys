@@ -108,12 +108,19 @@ class M_eval extends CI_Model{
 	    return;
 	}
 
+	function delete_file($id){ //fungsi delete berdasarkan id
+	    $this->db->where('id',$id); //pencocokan id, dimana id_transaksi == inputan $id_transaksi
+	    $this->db->delete($this->temp); //eksekusi
+	    return;
+	}
+
 	function save(){
         $end_id = $this->input->post('end_id');
 
         $path = FCPATH.'/upload/'. $_FILES["attachment"]['name'];
-        $file_name = $_FILES["makan"]['name'];
+        $file_name = $_FILES["attachment"]['name'];
         $num = 0;
+
         while(file_exists($path)) {
             $num++;
             $path = FCPATH.'/upload/'. $num . $_FILES["attachment"]['name'];

@@ -76,33 +76,16 @@ class OjtController extends CI_Controller {
 		);
 
 		$ojt_id = $this->input->post('ojt_id');
-
 		$insert_id =  $this->M_ojt->input_bank($data);
-
-		$data2 =  array(
-				'bank' => $this->db->query("
-							SELECT ev.id AS _id, * FROM public.tb_eval ev 
-							INNER JOIN public.tb_ojt oj ON ev.ojt_id = oj.id
-							WHERE ev.ojt_id = '".$ojt_id."'
-							ORDER BY _id DESC
-							") 
-				);
-		$this->load->view('v_bank',$data2);
+		$this->view_bank($ojt_id);
+		
 	}
 
 
 	function delete_bank($id){
 		$this->M_ojt->delete_bank($id);
 		$ojt_id = $this->input->post('ojt_id');
-		$data2 =  array(
-				'bank' => $this->db->query("
-							SELECT ev.id AS _id, * FROM public.tb_eval ev 
-							INNER JOIN public.tb_ojt oj ON ev.ojt_id = oj.id
-							WHERE ev.ojt_id = '".$ojt_id."'
-							ORDER BY _id DESC
-							") 
-				);
-		$this->load->view('v_bank',$data2);
+		$this->view_bank($ojt_id);
 	}
 
 

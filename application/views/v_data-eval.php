@@ -48,29 +48,55 @@
                   </thead>
                         
                   <tbody>
-                        <?php
+                      <?php
                           $no = 0;
+                              $data2 = date('Y-m-d');
+
                             foreach ($end->result() as $end) {
+                              $data = date('Y-m-d', strtotime('-3month',strtotime($end->ex_date)));
+
                           $no ++;
-                        ?>
-                    <tr>
-                      <td><?= $no ?></td>
-                      <td>
-                          <!-- &nbsp;<i class="fa fa-pencil fa-lg" onclick="_edit(<?= $end->_id; ?>)"></i>&nbsp; -->
-                          <i class="fa fa-trash-o fa-lg" onclick="_delete(<?= $end->_id; ?>)"></i>&nbsp;
-                          <i class="fa fa-print fa-lg" id="" onclick="_view(<?= $end->_id; ?>)"></i>
-                          <i class="fa fa-book fa-lg btn-file" id="<?= $end->_id ?>" data-toggle="modal" data-target="#modal-upload"></i>
-                      </td>
-                      <td><?= $end->name ?></td>
-                      <td><?= $end->_name ?></td>
-                      <td><?= $end->assessor ?></td>
-                      <td><?= $end->acknowledge ?></td>
-                      <td><?= date('d M Y', strtotime($end->ojt_date)) ?></td>
-                      <td><?= date('d M Y', strtotime($end->eval_date)) ?></td>
-                      <td><?= $end->status ?></td>
-                      <td><?= date('d M Y', strtotime($end->ex_date)) ?></td>
-                    </tr>
+ 
+                        if ($data <= $data2) {
+                      ?>
+                        <tr>
+                          <td><?= $no ?></td>
+                          <td>
+                              <i class="fa fa-trash-o fa-lg" onclick="_delete(<?= $end->_id; ?>)"></i>&nbsp;
+                              <i class="fa fa-print fa-lg" id="" onclick="_view(<?= $end->_id; ?>)"></i>
+                              <i class="fa fa-book fa-lg btn-file" id="<?= $end->_id ?>" data-toggle="modal" data-target="#modal-upload"></i>
+                          </td>
+                          <td style="text-decoration: line-through red; color: red;"><?= $end->name ?></td>
+                          <td style="text-decoration: line-through red; color: red;"><?= $end->_name ?></td>
+                          <td style="text-decoration: line-through red; color: red;"><?= $end->assessor ?></td>
+                          <td style="text-decoration: line-through red; color: red;"><?= $end->acknowledge ?></td>
+                          <td style="text-decoration: line-through red; color: red;"><?= date('d M Y', strtotime($end->ojt_date)) ?></td>
+                          <td style="text-decoration: line-through red; color: red;"><?= date('d M Y', strtotime($end->eval_date)) ?></td>
+                          <td style="text-decoration: line-through red; color: red;"><?= $end->status ?></td>
+                          <td style="text-decoration: line-through red; color: red;"><?= date('d M Y', strtotime($end->ex_date)) ?></td>
+                        </tr>
+
+
+                      <?php 
+                        } else { ?>
+                        <tr>
+                          <td><?= $no ?></td>
+                          <td>
+                            <i class="fa fa-trash-o fa-lg" onclick="_delete(<?= $end->_id; ?>)"></i>&nbsp;
+                            <i class="fa fa-print fa-lg" id="" onclick="_view(<?= $end->_id; ?>)"></i>
+                            <i class="fa fa-book fa-lg btn-file" id="<?= $end->_id ?>" data-toggle="modal" data-target="#modal-upload"></i>
+                          </td>
+                          <td><?= $end->name ?></td>
+                          <td><?= $end->_name ?></td>
+                          <td><?= $end->assessor ?></td>
+                          <td><?= $end->acknowledge ?></td>
+                          <td><?= date('d M Y', strtotime($end->ojt_date)) ?></td>
+                          <td><?= date('d M Y', strtotime($end->eval_date)) ?></td>
+                          <td><?= $end->status ?></td>
+                          <td><?= date('d M Y', strtotime($end->ex_date)) ?></td>
+                        </tr>
                         <?php
+                        } 
                           }
                         ?> 
                   </tbody>
@@ -125,12 +151,12 @@
           <h4 class="modal-title">Criteria List</h4>
         </div>
           <div class="modal-body">
-            <form action="" method="POST" validate="true" id="upload-form" enctype="multipart/form-data">
+            <form validate="true" id="upload-form" enctype="multipart/form-data">
               <input type="hidden" name="end_id" id="end_id" value="">
               <input type="file" name="attachment" id="attachment">
               <!-- <input type="file" name=""> -->
               <br>
-              <button type="submit" onclick="save_upload();">Upload</button>
+              <button type="button" onclick="save_upload();">Upload</button>
               
               <div id="file-data">
                 
@@ -152,6 +178,8 @@
 
 
 <script> 
+  var end_id;
+
   $(document).ready(function(){
     $(".select2").select2();
     $(".select2").prop('tabIndex', 0);
@@ -213,15 +241,22 @@
   }
 
   function save_upload(){
-      var _url=  "<?= site_url('/upload')?>";
+
+    var form = $('#upload-form')[0];
+    var formData = new FormData(form);
+    var _url=  "<?= site_url('/upload')?>";
+    formData.append('end_id', end_id);
+
     $.ajax({
       url: _url,
       type: "POST",
-      data: $('#upload-form').serialize(),
-      // dataType: "JSON",
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
       success: function(data){
-       // $('#upload-form').html(data);
-       // $('#attachment').val(""); 
+       $('#file-data').html(data);
+       $('#attachment').val(""); 
       }
     });
   }
@@ -230,7 +265,6 @@
     end_id = $(this).attr('id');
     $('#end_id').val(end_id);
 
-    // alert(end_id);
 
     $.ajax({
         url: "<?= site_url('/view-file/')?>"+end_id,
@@ -241,6 +275,20 @@
         } 
       });
   })
+
+  function delete_file(id){
+    if(confirm('Are you sure Delete this data ?')){
+      //ajax delete from database
+      $.ajax({
+        url: "<?= site_url('/delete/file/')?>"+id,
+        type: "POST",
+        data: {'end_id' : end_id},
+        success: function(data){
+          $('#file-data').html(data);
+        }
+      });
+    }
+  }
 </script>
 </body>
 </html>

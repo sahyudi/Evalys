@@ -141,14 +141,10 @@ class EvalController extends CI_Controller {
 		$this->load->view('v_file',$data);
 	}
 
-	function upload_foto(){
-		$end_id = $this->input->post('end_id');
+	function upload_file(){
+        $end_id = $this->input->post('end_id');
         $this->M_eval->save();
-
-        $data =  array(
-				'file' => $this->M_eval->view_file($end_id) 
-				);
-		$this->load->view('v_file',$data);
+        $this->view_file($end_id);
     }
 
     function download($filename){
@@ -157,5 +153,18 @@ class EvalController extends CI_Controller {
 
     	force_download(FCPATH.'/upload/'.$filename2, null);
     }
+
+    function delete_file($id){
+    	$data = $this->db->query("
+								SELECT name_file FROM public.tb_tmpr
+								WHERE tb_tmpr.id = '".$id."'
+								")-> result();
+    	// print_r($data);
+
+    	unlink(FCPATH.'/upload/'.$data[0]->name_file);
+		$this->M_eval->delete_file($id);
+		$end_id = $this->input->post('end_id');
+        $this->view_file($end_id);
+	}
 
 }

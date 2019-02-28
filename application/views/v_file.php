@@ -6,7 +6,7 @@
       <thead>
         <tr>
           <th style="width: 10px">No</th>
-          <th>Action</th>
+          <th style="width: 15px">Action</th>
           <th>File Name</th>
         </tr>
       </thead>
@@ -20,7 +20,7 @@
         <tr>
           <td><?= $no ?></td>
           <td>
-            <button type="button" class="btn btn-danger" onclick="bank_delete(<?= $temp->id ?>)">
+            <button type="button" class="btn btn-danger" onclick="delete_file(<?= $temp->id ?>)">
               <i class="fa fa-trash-o fa-md"></i>&nbsp;
             </button>
           </td>
@@ -41,5 +41,19 @@
       'ordering'    : false
     });
   });
+
+  // function delete_file(id){
+  //   if(confirm('Are you sure Delete this data ?')){
+  //     //ajax delete from database
+  //     $.ajax({
+  //       url: "<?= site_url('/delete/file/')?>"+id,
+  //       type: "POST",
+  //       data: {'end_id' : end_id},
+  //       success: function(data){
+  //         $('#file-data').html(data);
+  //       }
+  //     });
+  //   }
+  // }
 </script>
 </html>

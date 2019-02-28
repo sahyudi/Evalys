@@ -27,24 +27,38 @@
                 <table style="color: black;" class="table table-bordered" id="table1">
                   <thead>
                     <tr>      
-                      <th>NO</th>
-                      <th>SKILL</th>
-                      <th>EXIPRE DATE</th>
+                      <th width="5px" class="text-center">NO</th>
+                      <th class="text-center">SKILL</th>
+                      <th class="text-center">EXIPRE DATE</th>
                     </tr>
                   </thead>    
                   <tbody>
                   <?php
                         $no=0;
+                            $data2 = date('Y-m-d');
+                          
                           foreach ($data as $sio) {
-                             $no++; 
+                            $no++; 
+                            $data = date('Y-m-d', strtotime('-3month',strtotime($sio->ex_date)));
+
+                          $no ++;
+ 
+                        if ($data <= $data2) {
                         ?>
+                        <tr>
+                          <td class="text-center"><?=$no ?></td>
+                          <td style="text-decoration: line-through red; color: red;" ><?= $sio->_name ?></td>
+                          <td style="text-decoration: line-through red; color: red;" class="text-center"><?= date('d M Y', strtotime($sio->ex_date)) ?></td>
+                        </tr>
+                  <?php }else { ?>
+
                     <tr>
-                      <td><?=$no ?></td>
-                      <td><?= $sio->_name ?></td>
-                      <td><?= date('d M Y', strtotime($sio->ex_date)) ?></td>
+                      <td class="text-center"><?=$no ?></td>
+                      <td ><?= $sio->_name ?></td>
+                      <td class="text-center"><?= date('d M Y', strtotime($sio->ex_date)) ?></td>
                     </tr> 
                     <?php 
-                      }
+                     } }
                     ?>
                   </tbody>
                 </table>

@@ -139,14 +139,8 @@
         </div>
     <br>
                
-      <!-- /*<table style="border:1px solid black; width: 100%; border-collapse: collapse;" border="1">*/ -->
       <table style="border:0.5px solid #c6c6ce; width: 100%; border-collapse: collapse;" border="0.5">
-        <!-- <tr>
-          <th style="font-size: 18px; text-align: left;">Assessor :</th>
-          <th style="font-size: 18px; text-align: left;">Acknowledge By :</th>
-        </tr> -->
-
-        <tr>
+       <tr>
           <td>
             <h3 style="text-align: left; padding-left: 10px;"> Assessee :</h3>
 
