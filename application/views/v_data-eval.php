@@ -67,7 +67,7 @@
                               <i class="fa fa-book fa-lg btn-file" id="<?= $end->_id ?>" data-toggle="modal" data-target="#modal-upload"></i>
                           </td>
                           <td style="text-decoration: line-through red; color: red;"><?= $end->name ?></td>
-                          <td style="text-decoration: line-through red; color: red;"><?= $end->_name ?></td>
+                          <td style="text-decoration: line-through red; color: red;"><?= $end->ojt_name ?></td>
                           <td style="text-decoration: line-through red; color: red;"><?= $end->assessor ?></td>
                           <td style="text-decoration: line-through red; color: red;"><?= $end->acknowledge ?></td>
                           <td style="text-decoration: line-through red; color: red;"><?= date('d M Y', strtotime($end->ojt_date)) ?></td>
@@ -87,7 +87,7 @@
                             <i class="fa fa-book fa-lg btn-file" id="<?= $end->_id ?>" data-toggle="modal" data-target="#modal-upload"></i>
                           </td>
                           <td><?= $end->name ?></td>
-                          <td><?= $end->_name ?></td>
+                          <td><?= $end->ojt_name ?></td>
                           <td><?= $end->assessor ?></td>
                           <td><?= $end->acknowledge ?></td>
                           <td><?= date('d M Y', strtotime($end->ojt_date)) ?></td>

@@ -30,8 +30,7 @@ class M_eval extends CI_Model{
 
 	function end_view($id){
 		$query = $this->db->query("
-							SELECT DISTINCT N.criteria AS crie, O.name AS _name, E.status AS hasil, * FROM Public.tb_end E 
-							JOIN public.tb_ojt O ON E.ojt_id = O.id
+							SELECT N.criteria AS crie, E.status AS hasil, E.remark AS ojt_name,* FROM Public.tb_end E 
 							JOIN public.tb_user U ON E.user_id = U.id
 							JOIN public.tb_value N ON E.created_at = N.created_at
 							WHERE E.id = ".$id."
@@ -54,8 +53,7 @@ class M_eval extends CI_Model{
 		$dat= $this->input->post('id_user');
 
 		$query = $this->db->query("
-							SELECT O.name AS _name, * FROM public.tb_end E 
-							JOIN public.tb_ojt O ON E.ojt_id = O.id
+							SELECT E.remark AS ojt_name, * FROM public.tb_end E 
 							JOIN public.tb_user U ON E.user_id = U.id
 							where E.status = 'PASSED' AND E.id_user = ".$dat."
 							");
@@ -86,16 +84,15 @@ class M_eval extends CI_Model{
 		return $hasil;
 	}
 
-	function input_data($id_ojt, $date_ojt, $date_eval,$id_ase,$id_ack,$ket,$id_user,$ex_date,$created_at){
+	function input_data($ojt_name, $date_ojt, $date_eval,$id_ase,$id_ack,$ket,$id_user,$ex_date,$created_at){
 
-		$hasil=$this->db->query("INSERT INTO tb_end (ojt_id, user_id, assessor, acknowledge, ojt_date, eval_date, ex_date, status, created_at) VALUES('".$id_ojt."','".$id_user."', '".$id_ase."', '".$id_ack."', '".$date_ojt."', '".$date_eval."','".$ex_date."', '".$ket."', '".$created_at."')");
+		$hasil=$this->db->query("INSERT INTO tb_end (remark, user_id, assessor, acknowledge, ojt_date, eval_date, ex_date, status, created_at) VALUES('".$ojt_name."','".$id_user."', '".$id_ase."', '".$id_ack."', '".$date_ojt."', '".$date_eval."','".$ex_date."', '".$ket."', '".$created_at."')");
 		return $hasil;
 	}
 
 	function view_data(){
 		$query = $this->db->query("
-				SELECT O.name AS _name, E.id AS _id, * FROM Public.tb_end E 
-				INNER JOIN public.tb_ojt O ON E.ojt_id = O.id
+				SELECT E.id AS _id, E.remark AS ojt_name, * FROM Public.tb_end E 
 				INNER JOIN public.tb_user U ON E.user_id = U.id
 				ORDER BY E.id DESC
 				");

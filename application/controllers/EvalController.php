@@ -60,6 +60,7 @@ class EvalController extends CI_Controller {
 		$id_ack = $this->input->post('ack');
 		$date_ojt = $this->input->post('ojt_date');
 		$date_eval = $this->input->post('eval_date');
+		$test = $this->input->post('test');
 		$nilai = $this->input->post('nilai[]');
 		$note = $this->input->post('note[]');
 		$id_eval = $this->input->post('id_eval[]');
@@ -74,12 +75,14 @@ class EvalController extends CI_Controller {
 
 
 			$data = $this->db->query("
-								SELECT due_date FROM public.tb_ojt
+								SELECT due_date,name FROM public.tb_ojt
 								WHERE tb_ojt.id = '".$id_ojt."'
 								");
 			$hasil = $data->result();
 
 			$due = $hasil[0]->due_date;
+			$ojt_name = $hasil[0]->name;
+
 
 		$nilai_akhir = 0;
 		for ($i=0; $i < count($nilai) ; $i++) {
@@ -97,7 +100,7 @@ class EvalController extends CI_Controller {
 			$ket = "PASSED";
 			$ex_date = date('Y-m-d H:i:s', strtotime('+'.$due.'year', strtotime( $date_eval )));
 		}
-		$insert_id = $this->M_eval->input_data($id_ojt, $new_date_ojt, $new_date_eval, $id_ase, $id_ack, $ket, $id_user, $ex_date,$created_at);
+		$insert_id = $this->M_eval->input_data($ojt_name, $new_date_ojt, $new_date_eval, $id_ase, $id_ack, $ket, $id_user, $ex_date,$created_at);
 		
 
 		echo json_encode(array("status" => TRUE, "msg" => "Data registered successful"));

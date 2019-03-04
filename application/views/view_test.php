@@ -73,6 +73,8 @@ function save(){
   ack = $('select[name=acknowledge]').val();
   ojt_date = $('#datepicker').val();
   eval_date = $('#datepicker1').val();
+  // test = $('#ojt_id').val();
+
 
 
   var _url = "<?= site_url('/eval/save') ?>";
@@ -85,6 +87,7 @@ function save(){
   formData.append('ojt_date', ojt_date);
   formData.append('eval_date', eval_date);
   formData.append('ojt_id', ojt_id);
+  // formData.append('test', test);
 
   $.ajax({
     url: _url,

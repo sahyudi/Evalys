@@ -6,7 +6,7 @@
       <thead>
         <tr>
           <th style="width: 10px">No</th>
-          <th width="100" style="min-width: 110px; max-width: 110px;">Action</th>
+          <th width="10px">Action</th>
           <th>Criteria List</th>
           <!-- <th>OJT Position</th> -->
         </tr>
@@ -21,9 +21,6 @@
         <tr>
           <td><?= $no ?></td>
           <td>
-            <!-- <button style="margin-right: 5px;" type="button" class="btn btn-success" onclick="bank_edit(<?= $temp->_id ?>)">
-              <i class="fa fa-pencil fa-md"></i>&nbsp;
-            </button> -->
             <button type="button" class="btn btn-danger" onclick="bank_delete(<?= $temp->_id ?>)">
               <i class="fa fa-trash-o fa-md"></i>&nbsp;
             </button>

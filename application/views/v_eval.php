@@ -35,7 +35,7 @@
                       <option selected="selected" value=""> NIK </option>
                         <?php 
                           foreach ($user->result() as $user2) {
-                            echo '<option value="'.$user2->id.'">'.$user2->nik.' &nbsp;&nbsp; '.$user2->name.'</option>';
+                            echo '<option value="'.$user2->id.'"><span>'.$user2->nik.'</span> <span>'.$user2->name.'</span></option>';
                           }
                         ?>
                     </select>
@@ -66,7 +66,7 @@
                       <option selected="selected" value=""> Assessor </option>
                         <?php
                               foreach ($user->result() as $asse) {
-                            echo '<option value="'.$asse->name.'">'.$asse->nik.' &nbsp;&nbsp; '.$asse->name.'</option>';
+                            echo '<option value="'.$asse->name.'"><span>'.$asse->nik.'</span> <span>'.$asse->name.'</span></option>';
                             }
                         ?>
                     </select>
@@ -81,7 +81,7 @@
                       <option selected="selected" value=""> Acknowledged by </option>
                         <?php 
                           foreach ($user->result() as $user3) {
-                            echo '<option value="'.$user3->name.'">'.$user3->nik.' &nbsp;&nbsp; '.$user3->name.'</option>';
+                            echo '<option value="'.$user3->name.'"><span>'.$user3->nik.'</span> <span>'.$user3->name.'</span></option>';
                           }
                         ?>
                     </select>
@@ -116,12 +116,13 @@
                   <label class="col-sm-3">Unit of Competency</label>
 
                   <div class="col-sm-9">
-                    <select class="form-control select2"  id="ojt" name="ojt"style="width: 100%;">
+                    <select class="form-control select2" id="ojt" name="ojt" style="width: 100%;">
                       <option selected="selected" value="">Unit of Competency</option>
                         <?php 
-                          foreach ($ojt->result() as $ojt) {
-                            echo '<option value="'.$ojt->id.'">'.$ojt->name.'</option>';
-                        }
+                          foreach ($ojt->result() as $ojt) { ?>
+                          <option value="<?= $ojt->id ?>"><?= $ojt->name ?></option>
+                          <!-- <input type="hidden" id="ojt_id" value="<?= $ojt->name ?>">  --> 
+                      <?php  }
                       ?>                    
                     </select>
                   </div>
@@ -154,6 +155,7 @@
     var ack ;
     var ojt_date ;
     var eval_date ;
+    var test ;
 
     // $('#cie_tabel').hide();
     $('.hide1').hide();
@@ -233,8 +235,8 @@
 
   $('#ojt').on("change", function(){
     ojt_id = $('select[name=ojt]').val();
-
-    // alert(id);
+    // test = $(this).attr('title');
+    // alert(test);
     var _url = "<?= site_url('/eval/view')?>";
 
     if($('[name="nik"]').val()!="") {
@@ -247,8 +249,6 @@
           }
         });
     }
-    else{
-    } 
       
   });
 

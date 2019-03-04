@@ -67,7 +67,7 @@
         <tr>
           <td width="200" style="font-size: 20px">Competency</td>
           <td>:</td>
-          <td style="font-size: 20px; padding: 10px;" ><b><?= $ts->_name ?></b></td>
+          <td style="font-size: 20px; padding: 10px;" ><b><?= $ts->ojt_name ?></b></td>
         </tr>
 
         <tr>
