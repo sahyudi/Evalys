@@ -22,7 +22,7 @@
                       <option selected="selected" value=""> :: Please select one :: </option>
                         <?php 
                           foreach ($user->result() as $user2) {
-                            echo '<option value="'.$user2->id.'"><span>'.$user2->nik.'</span> <span>'.$user2->name.'</span></option>';
+                            echo '<option value="'.$user2->nik.'"><span>'.$user2->nik.'</span>';
                           }
                         ?>
                     </select>
@@ -53,7 +53,7 @@
                       <option selected="selected" value=""> :: Please select one :: </option>
                         <?php
                               foreach ($user->result() as $asse) {
-                            echo '<option value="'.$asse->nik.'"><span>'.$asse->nik.'</span> <span>'.$asse->name.'</span></option>';
+                            echo '<option value="'.$asse->nik.'"><span>'.$asse->nik.'</span>';
                             }
                         ?>
                     </select>
@@ -68,7 +68,7 @@
                       <option selected="selected" value=""> :: Please select one :: </option>
                         <?php 
                           foreach ($user->result() as $user3) {
-                            echo '<option value="'.$user3->nik.'"><span>'.$user3->nik.'</span> <span>'.$user3->name.'</span></option>';
+                            echo '<option value="'.$user3->nik.'"><span>'.$user3->nik.'</span>';
                           }
                         ?>
                     </select>
@@ -200,8 +200,8 @@
         type: "GET",
         dataType: "JSON",
         success: function(data){
-            $('[name="nama"]').val(data.name+" ").trigger('change').focus();
-            $('[name="dept"]').val(data.dept).trigger('change');
+            // $('[name="nama"]').val(data.name+" ").trigger('change').focus();
+            // $('[name="dept"]').val(data.dept).trigger('change');
 
           },
         error: function (jqXHR, textStatus, errorThrown){

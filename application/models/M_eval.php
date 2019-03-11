@@ -31,7 +31,6 @@ class M_eval extends CI_Model{
 	function end_view($id){
 		$query = $this->db->query("
 							SELECT N.criteria AS crie, E.status AS hasil, E.remark AS ojt_name,* FROM Public.tb_end E 
-							JOIN public.tb_user U ON E.user_id = U.id
 							JOIN public.tb_value N ON E.created_at = N.created_at
 							WHERE E.id = ".$id."
 				");
@@ -50,14 +49,14 @@ class M_eval extends CI_Model{
 	}
 
 	function view_sio(){
-		$dat= $this->input->post('id_user');
+		// $id= $this->input->post('id_user');
 
-		$query = $this->db->query("
-							SELECT E.remark AS ojt_name, * FROM public.tb_end E 
-							JOIN public.tb_user U ON E.user_id = U.id
-							where E.status = 'PASSED' AND E.id_user = ".$dat."
-							");
-		return $query;
+		// $query = $this->db->query("
+		// 					SELECT DISTINCT ON (remark) E.remark AS ojt_name, * FROM public.tb_end E 
+		// 					JOIN public.tb_user U ON E.user_id = U.id
+		// 					where E.status = 'PASSED' AND E.id_user = ".$id."
+		// 					");
+		// return $query;
 	}
 
 	function view_bank(){
@@ -92,24 +91,46 @@ class M_eval extends CI_Model{
 
 	function view_data(){
 		$query = $this->db->query("
-				SELECT E.id AS _id, E.remark AS ojt_name, * FROM Public.tb_end E 
-				INNER JOIN public.tb_user U ON E.user_id = U.id
-				ORDER BY E.id DESC
+				SELECT id AS _id, remark AS ojt_name, * FROM Public.tb_end 
+				ORDER BY id DESC
 				");
 		return $query;
 	}
 
-	function delete_eval($id){ //fungsi delete berdasarkan id
-	    $this->db->where('id',$id); //pencocokan id, dimana id_transaksi == inputan $id_transaksi
-	    $this->db->delete($this->end); //eksekusi
+	function delete_eval($id){ 
+	    $this->db->where('id',$id); 
+	    $this->db->delete($this->end); 
 	    return;
 	}
 
-	function delete_file($id){ //fungsi delete berdasarkan id
-	    $this->db->where('id',$id); //pencocokan id, dimana id_transaksi == inputan $id_transaksi
-	    $this->db->delete($this->temp); //eksekusi
+	function delete_file($id){ 
+	    $this->db->where('id',$id); 
+	    $this->db->delete($this->temp); 
 	    return;
 	}
+
+	//////////////////////////////////////////////////query baru update ke pak dirman
+
+	function delete_value($id,$time){ 
+
+		$query = $this->db->query("
+				DELETE FROM public.tb_value
+				WHERE user_id = '".$id."' AND created_at = '".$time."'
+				");
+		return $query;
+	}
+
+
+	function delete_file2($id){ 
+	    $query = $this->db->query("
+				DELETE FROM public.tb_tmpr
+				WHERE end_id = ".$id."
+				");
+		return $query;
+	}
+
+	///////////////////////////////////////////////////////////
+
 
 	function save(){
         $end_id = $this->input->post('end_id');

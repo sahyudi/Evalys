@@ -23,7 +23,7 @@
                     <option selected="selected" value=""> :: NIK :: </option>
                       <?php 
                         foreach ($user->result() as $user2) { ?>
-                          <option value="<?= $user2->id ?>"><span><?=$user2->nik?></span></option>
+                          <option value="<?= $user2->nik ?>"><span><?=$user2->nik?></span></option>
                       <?php  }
                       ?>
                   </select>

@@ -57,7 +57,7 @@
                              <?php
                                     if ($data <= $data2) {
                               ?>
-                          <td style="text-decoration: line-through red; color: red;"><?= $end->nik ?></td>
+                          <td style="text-decoration: line-through red; color: red;"><?= $end->user_id ?></td>
                           <td style="text-decoration: line-through red; color: red;"><?= $end->ojt_name ?></td>
                           <td style="text-decoration: line-through red; color: red;"><?= $end->assessor ?></td>
                           <td style="text-decoration: line-through red; color: red;"><?= $end->acknowledge ?></td>
@@ -70,7 +70,7 @@
 
                       <?php 
                         } else { ?>
-                          <td><?= $end->nik ?></td>
+                          <td><?= $end->user_id ?></td>
                           <td><?= $end->ojt_name ?></td>
                           <td><?= $end->assessor ?></td>
                           <td><?= $end->acknowledge ?></td>
@@ -107,7 +107,7 @@
                 <option selected="selected" value=""> NIK </option>
                   <?php 
                     foreach ($user->result() as $user2) {
-                      echo '<option value="'.$user2->id.'">'.$user2->nik.' &nbsp;&nbsp; '.$user2->name.'</option>';
+                      echo '<option value="'.$user2->nik.'">'.$user2->nik.' &nbsp;&nbsp; '.$user2->name.'</option>';
                     }
                   ?>
               </select>
@@ -180,16 +180,13 @@
         type: "POST",
         dataType: "JSON",
         success: function(data){
-          if(data.status==1){
+          if(data.status=='TRUE'){
             alert(data.msg);
             location.reload();
           } else {
             alert(data.msg);
           }
-      },
-      error: function (jqXHR, textStatus, errorThrown){
-        alert('Error on: '+ jqXHR.responseText);
-      }
+        }
       });
     }
   }

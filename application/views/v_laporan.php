@@ -54,7 +54,7 @@
         <tr>
           <td width="200">NIK</td>
           <td>:</td>
-          <td style="padding: 5px;" ><?= $ts->nik ?></td>
+          <td style="padding: 5px;" ><?= $ts->user_id ?></td>
         </tr>
 
         <tr>

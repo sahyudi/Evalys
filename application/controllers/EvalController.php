@@ -143,8 +143,24 @@ class EvalController extends CI_Controller {
 	}
 
 	function delete_eval($id){
+
+		$data = $this->db->query("
+								SELECT user_id, created_at FROM public.tb_end
+								WHERE id = '".$id."'
+								")-> result();
+
+		$user_id = $data[0]->user_id;
+		$created_at = $data[0]->created_at;
+
+		print_r($data);
+
+		// echo $data[0]->user_id;
+		// echo 
+		$this->M_eval->delete_value($user_id, $created_at);
 		$this->M_eval->delete_eval($id); 
-		echo json_encode(array("status" => TRUE, "msg" => "Data deleted successful"));
+		$this->M_eval->delete_file2($id); 
+
+		echo json_encode(array("status" => 'TRUE', "msg" => "Data deleted successful"));
 	}
 
 	function end_view($id){

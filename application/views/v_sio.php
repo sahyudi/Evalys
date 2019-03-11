@@ -46,7 +46,7 @@
                   ?>
                         <tr>
                           <td class="text-center"><?=$no ?></td>
-                          <td style="text-decoration: line-through red; color: red;" ><?= $sio->_name ?></td>
+                          <td style="text-decoration: line-through red; color: red;" ><?= $sio->ojt_name ?></td>
                           <td style="text-decoration: line-through red; color: red;" class="text-center"><?= date('d M Y', strtotime($sio->ex_date)) ?></td>
                         </tr>
 
