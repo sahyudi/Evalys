@@ -8,10 +8,9 @@
               display: block;
               margin-left: auto;
               margin-right: auto;
-              width: 2.8cm;
-              height: 3.8cm;
+              width: 2cm;
+              height: 3cm;
             }
-
       body {
               background: rgb(204,204,204); 
           }
@@ -27,8 +26,8 @@
             height: 29.7cm; 
             padding-left: 3cm;
             padding-right: 3cm;
-            padding-top: 3cm;
-            padding-bottom: 3cm;
+            padding-top: 0.5cm;
+            padding-bottom: 0.5cm;
           }
   </style>
   <page size="A4" >
@@ -45,41 +44,41 @@
       <h2>EVALUATION LEVEL 4</h2>
     </center>
     <table>
-      <div style="font-size: 20px">
+      <div style="font-size: 20px;">
         <tr>
-          <td width="200" style="font-size: 20px" >Name</td>
+          <td width="200" >Name</td>
           <td>:</td>
-          <td style="font-size: 20px; padding: 10px;" ><b><?= $ts->name ?></b></td>
+          <td style="padding: 5px;" ><b>Nama</b></td>
         </tr>
 
         <tr>
-          <td width="200" style="font-size: 20px">NIK</td>
+          <td width="200">NIK</td>
           <td>:</td>
-          <td style="font-size: 20px; padding: 10px;" ><?= $ts->nik ?></td>
+          <td style="padding: 5px;" ><?= $ts->nik ?></td>
         </tr>
 
         <tr>
-          <td width="200" style="font-size: 20px">Dept</td>
+          <td width="200">Dept</td>
           <td>:</td>
-          <td style="font-size: 20px; padding: 10px;" ><?= $ts->dept ?></td>
+          <td style="padding: 5px;" >Nama Dept</td>
         </tr>
 
         <tr>
-          <td width="200" style="font-size: 20px">Competency</td>
+          <td width="200">Competency</td>
           <td>:</td>
-          <td style="font-size: 20px; padding: 10px;" ><b><?= $ts->ojt_name ?></b></td>
+          <td style="padding: 5px;" ><b><?= $ts->ojt_name ?></b></td>
         </tr>
 
         <tr>
-          <td width="200" style="font-size: 20px;">OJT Date</td>
+          <td width="200">OJT Date</td>
           <td>:</td>
-          <td style="font-size: 20px; padding: 10px;" ><?=date('d M Y', strtotime( $ts->ojt_date)) ?></td>
+          <td style="padding: 5px;" ><?=date('d M Y', strtotime( $ts->ojt_date)) ?></td>
         </tr>
 
         <tr>
-          <td width="200" style="font-size: 20px">Evaluation Date</td>
+          <td width="200">Evaluation Date</td>
           <td>:</td>
-          <td style="font-size: 20px; padding: 10px;" ><?=date('d M Y', strtotime( $ts->eval_date)) ?></td>
+          <td style="padding: 5px;" ><?=date('d M Y', strtotime( $ts->eval_date)) ?></td>
         </tr>
       </div>
     </table>
@@ -91,10 +90,10 @@
       <table style="border:1px solid black; width: 100%; border-collapse: collapse;" border="1">
         <thead>
           <tr>
-            <th style="padding:7px; width: 3%; text-align: center;">NO</th>
-            <th style="padding:7px; width: 67%;">Competency Units</th>
-            <th style="padding:7px; width: 10%;">Status</th>
-            <th style="padding:7px; width: 20;">Remark</th>
+            <th style="padding:3px; width: 3%; text-align: center;">NO</th>
+            <th style="padding:3px; width: 67%;">Competency Units</th>
+            <th style="padding:3px; width: 10%;">Status</th>
+            <th style="padding:3px; width: 20;">Remark</th>
           </tr>
         </thead>
       <tbody>
@@ -103,31 +102,19 @@
                 foreach ($test as $view){
                   if ( $view->value == 1){
                         $nilai = "PASSED";
-
                       }elseif ($view->value == 0) {
                         $nilai = "FAILED";
                       }
-                //   $simpan[$no] = $view->crie;
-                // if ($no != 1) {
-                //   # code...
-                
-                //     if ($simpan[$no] != $simpan[$no - 1]) {
                       
-
-
               ?>
         <tr>
-          <td style="padding:7px; text-align: center;"><?= $no ?></td>
-          <td style="padding:7px; padding-left: 5px;"><?= $view->crie ?></td>
-          <td style="padding:7px; text-align: center;"><b> <?= $nilai ?></b> </td>
-          <td style="padding:7px; padding-left: 5px;"><?= $view->remark ?></td>
+          <td style="padding:3px; text-align: center;"><?= $no ?></td>
+          <td style="padding:3px; padding-left: 5px;"><?= $view->crie ?></td>
+          <td style="padding:3px; text-align: center;"><b> <?= $nilai ?></b> </td>
+          <td style="padding:3px; padding-left: 5px;"><?= $view->remark ?></td>
         </tr>
               <?php
-              // }
-              //     }
                $no ++;  
-
-
              } 
               ?>
       </tbody>
@@ -135,27 +122,36 @@
 
       <h3><b>Result</b></h3>
         <div style="border: 0.5px solid #c6c6ce ; padding: 5px;">
-          <?= $view->hasil ?>
+          <!-- <?= $view->hasil ?> -->
+          hasil
         </div>
     <br>
                
+      <!-- /*<table style="border:1px solid black; width: 100%; border-collapse: collapse;" border="1">*/ -->
       <table style="border:0.5px solid #c6c6ce; width: 100%; border-collapse: collapse;" border="0.5">
-       <tr>
+        <!-- <tr>
+          <th style="font-size: 18px; text-align: left;">Assessor :</th>
+          <th style="font-size: 18px; text-align: left;">Acknowledge By :</th>
+        </tr> -->
+
+        <tr>
           <td>
-            <h3 style="text-align: left; padding-left: 10px;"> Assessee :</h3>
+            <h3 style="text-align: left; padding-left: 5px;"> Assessee :</h3>
 
             <img class="center" class="center" src="<?php echo base_url().'avatar5.png' ?>" >
-            <h4 style="text-align: center;"><?= $view->name ?></h4>
+            <h4 style="text-align: center;">Nama Asesi</h4>
           </td>
           <td>
-            <h3 style="text-align: left; padding-left: 10px;"> Assessor  :</h3>
+            <h3 style="text-align: left; padding-left: 5px;"> Assessor  :</h3>
             <img class="center" src="<?php echo base_url().'avatar5.png' ?>">
-            <h4 style="text-align: center;"><?= $view->assessor ?></h4>
+            <h4 style="text-align: center;">test</h4>
+            <!-- <?= $view->assessor ?> -->
+            <!-- <?= $view->acknowledge ?> -->
           </td>
           <td>
-            <h3 style="text-align: left; padding-left: 10px;"> Acknowledge By  :</h3>
+            <h3 style="text-align: left; padding-left: 5px;"> Acknowledge By  :</h3>
             <img class="center" src="<?php echo base_url().'avatar5.png' ?>">
-            <h4 style="text-align: center;"><?= $view->acknowledge ?></h4>
+            <h4 style="text-align: center;">test</h4>
           </td>
 
         </tr>

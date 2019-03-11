@@ -12,7 +12,6 @@ class OjtController extends CI_Controller {
 
 		$this->load->model('M_ojt');
 		$this->load->helper('url');
-		$this->load->library('pdf');
 
 	}
 

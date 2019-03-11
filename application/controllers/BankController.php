@@ -9,6 +9,10 @@ class BankController extends CI_Controller {
 			if ($this->session->nik == null){
 				redirect(Site_url('login'));
 			}
+
+			if ($this->session->role != 'admin') {
+				redirect(Site_url('eval/view-data'));
+			}
 			
 		$this->load->model('M_bank');
 		$this->load->helper('url');
@@ -32,7 +36,6 @@ class BankController extends CI_Controller {
 		);
 
 		$insert_id = $this->M_bank->input_data($data);
-
 		echo json_encode(array("status" => TRUE, "msg" => "Data registered successful"));
 	}
 

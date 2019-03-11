@@ -1,22 +1,9 @@
 <?php include $_SERVER['DOCUMENT_ROOT']."/hr_program/evalys/application/views/template/head.php"; ?>
 <!DOCTYPE html>
 <html>
-<title>Evaluation Form</title>
+<title>Evalys</title>
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Data Tables
-        <small>advanced tables</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
-      </ol>
-    </section>
-    
     <section class="content">
       <div class="row">
         <div class="col-md-12">
@@ -28,11 +15,11 @@
               <div class="box-body">
 
                 <div class="form-group">
-                  <label class="col-sm-3">NIK</label>
+                  <label class="col-md-2">NIK</label>
 
-                  <div class="col-sm-9">
+                  <div class="col-md-4">
                     <select class="form-control select2" id="nik" name="nik" style="width: 100%;">
-                      <option selected="selected" value=""> NIK </option>
+                      <option selected="selected" value=""> :: Please select one :: </option>
                         <?php 
                           foreach ($user->result() as $user2) {
                             echo '<option value="'.$user2->id.'"><span>'.$user2->nik.'</span> <span>'.$user2->name.'</span></option>';
@@ -43,30 +30,30 @@
                 </div>
 
                 <div class="form-group hide1">
-                  <label class="col-sm-3">Name</label>
+                  <label class="col-md-2">Name</label>
 
-                  <div class="col-sm-9">
+                  <div class="col-md-4">
                     <input type="text" id="nama" name="nama" class="form-control" id="inputPassword3" disabled="true">
                   </div>
                 </div>
 
                 <div class="form-group hide1">
-                  <label class="col-sm-3">Departement</label>
+                  <label class="col-md-2">Departement</label>
 
-                  <div class="col-sm-9">
+                  <div class="col-md-4">
                     <input type="text" id="dept" name="dept" class="form-control" id="inputPassword3" disabled="true">
                   </div>
                 </div>
 
                 <div class="form-group hide1">
-                  <label class="col-sm-3">Assessor</label>
+                  <label class="col-md-2">Assessor</label>
 
-                  <div class="col-sm-9">
+                  <div class="col-md-4">
                     <select class="form-control select2" id="asse" name="asse" style="width: 100%;">
-                      <option selected="selected" value=""> Assessor </option>
+                      <option selected="selected" value=""> :: Please select one :: </option>
                         <?php
                               foreach ($user->result() as $asse) {
-                            echo '<option value="'.$asse->name.'"><span>'.$asse->nik.'</span> <span>'.$asse->name.'</span></option>';
+                            echo '<option value="'.$asse->nik.'"><span>'.$asse->nik.'</span> <span>'.$asse->name.'</span></option>';
                             }
                         ?>
                     </select>
@@ -74,14 +61,14 @@
                 </div>
 
                 <div class="form-group hide1">
-                  <label class="col-sm-3">Acknowledged by</label>
+                  <label class="col-md-2">Acknowledged by</label>
 
-                  <div class="col-sm-9">
+                  <div class="col-md-4">
                     <select class="form-control select2" id="acknowledge" name="acknowledge" style="width: 100%;">
-                      <option selected="selected" value=""> Acknowledged by </option>
+                      <option selected="selected" value=""> :: Please select one :: </option>
                         <?php 
                           foreach ($user->result() as $user3) {
-                            echo '<option value="'.$user3->name.'"><span>'.$user3->nik.'</span> <span>'.$user3->name.'</span></option>';
+                            echo '<option value="'.$user3->nik.'"><span>'.$user3->nik.'</span> <span>'.$user3->name.'</span></option>';
                           }
                         ?>
                     </select>
@@ -89,8 +76,8 @@
                 </div>
 
                 <div class="form-group hide1">
-                  <label class="col-sm-3 ">OJT Date</label>
-                  <div class="col-sm-9">
+                  <label class="col-md-2 ">OJT Date</label>
+                  <div class="col-md-4">
                     <div class="input-group date">
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
@@ -101,8 +88,8 @@
                 </div>
 
                 <div class="form-group hide1">
-                  <label class="col-sm-3">Evaluation Date</label>
-                  <div class="col-sm-9">
+                  <label class="col-md-2">Evaluation Date</label>
+                  <div class="col-md-4">
                     <div class="input-group date">
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
@@ -113,11 +100,11 @@
                 </div>
 
                 <div class="form-group hide1">
-                  <label class="col-sm-3">Unit of Competency</label>
+                  <label class="col-md-2">Unit of Competency</label>
 
-                  <div class="col-sm-9">
+                  <div class="col-md-4">
                     <select class="form-control select2" id="ojt" name="ojt" style="width: 100%;">
-                      <option selected="selected" value="">Unit of Competency</option>
+                      <option selected="selected" value="">:: Please select one ::</option>
                         <?php 
                           foreach ($ojt->result() as $ojt) { ?>
                           <option value="<?= $ojt->id ?>"><?= $ojt->name ?></option>
@@ -203,11 +190,7 @@
 
 
   $('#nik').on("change", function(){
-    
-    // alert(id_user);
     $('.hide1').show();
-    // $('[name="nama"]').val(data.name+" ").trigger('change');
-    // $('[name="dept"]').val(data.dept).trigger('change');
 
       if($('[name="nik"]').val()!="") {
         var _url = "<?= site_url('/eval/nik/') ?>" + $('[name="nik"]').val();
@@ -235,8 +218,6 @@
 
   $('#ojt').on("change", function(){
     ojt_id = $('select[name=ojt]').val();
-    // test = $(this).attr('title');
-    // alert(test);
     var _url = "<?= site_url('/eval/view')?>";
 
     if($('[name="nik"]').val()!="") {
@@ -251,26 +232,6 @@
     }
       
   });
-
-  // $('#nik').on("change", function(){
-  //   pre_save();
-  // });
-
-  //  $('#asse').on("change", function(){
-  //   pre_save();
-  // });
-
-  //  $('#acknowledge').on("change", function(){
-  //   pre_save();
-  // });
-
-  // function pre_save(){
-   
-  //   if($('select[name=nik]').val()!="" && $('select[name=asse]').val()!="" && $('select[name=acknowledge]').val()!="" && $('#datepicker').val()!="" && $('#datepicker1').val()!=""){
-  //       $('#ojt').removeAttr('disabled');
-  //   }
-  // }
-
   
 </script>
 </body>

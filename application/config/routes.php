@@ -26,6 +26,8 @@ $route['cetak2'] = 'EvalController/test';
 $route['cetak3'] = 'Report/pdf';
 
 
+$route['user'] = 'UserController/index';
+$route['add-user'] = 'UserController/add_user';
 
 
 
@@ -47,6 +49,7 @@ $route['end/delete/(:any)'] = 'EvalController/delete_eval/$1';
 $route['end/view/(:any)'] = 'EvalController/end_view/$1';
 $route['end/view-docum'] = 'EvalController/view_docum';
 $route['laporan/(:any)'] = 'EvalController/end_view/$1';
+$route['certifikat'] = 'EvalController/get_certifikat';
 
 
 
@@ -58,13 +61,6 @@ $route['ojt/add'] = 'OjtController/add_ojt';
 $route['ojt/delete/(:any)'] = 'OjtController/delete_ojt/$1';
 $route['ojt/edit/(:any)'] = 'OjtController/edit_ojt/$1';
 $route['ojt/update'] = 'OjtController/update_ojt';
-
-
-
-$route['docum'] = 'DocumController/index';
-$route['docum/add'] = 'DocumController/add_Return';
-$route['docum/view/(:any)'] = 'DocumController/view_detail/$1';
-
 
 
 //Bank soal

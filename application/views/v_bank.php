@@ -7,7 +7,7 @@
         <tr>
           <th style="width: 10px">No</th>
           <th width="10px">Action</th>
-          <th>Criteria List</th>
+          <th>Performance Criteria</th>
           <!-- <th>OJT Position</th> -->
         </tr>
       </thead>

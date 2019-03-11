@@ -16,10 +16,10 @@
                   foreach ($data as $view) {
                 ?>
               <img class="profile-user-img img-responsive img-circle" src="<?= base_url('avatar5.png') ?>" alt="User profile picture">
-              <h3 class="profile-username text-center"><?= $view->name ?></h3>
-              <!-- <p class="text-muted text-center">Software Engineer</p> -->
+              <h3 class="profile-username text-center">Nama</h3>
+              <p class="text-muted text-center"><?= $view->nik ?></p>
                 <?php 
-                  }
+                 break; }
                 ?>
               <div class="box-body table-responsive table-striped">
                 
@@ -28,27 +28,28 @@
                   <thead>
                     <tr>      
                       <th width="5px" class="text-center">NO</th>
-                      <th class="text-center">SKILL</th>
-                      <th class="text-center">EXIPRE DATE</th>
+                      <th class="text-center">Unit of Competency</th>
+                      <th class="text-center">Expiry Date</th>
                     </tr>
                   </thead>    
                   <tbody>
                   <?php
-                        $no=0;
-                            $data2 = date('Y-m-d');
-                          
-                          foreach ($data as $sio) {
-                            $no++; 
-                            $data = date('Y-m-d', strtotime('-3month',strtotime($sio->ex_date)));
+                    $no=0;
+                        $data2 = date('Y-m-d');
+                      
+                      foreach ($data as $sio) {
+                        $no++; 
+                        $data = date('Y-m-d', strtotime('-3month',strtotime($sio->ex_date)));
 
  
                         if ($data <= $data2) {
-                        ?>
+                  ?>
                         <tr>
                           <td class="text-center"><?=$no ?></td>
                           <td style="text-decoration: line-through red; color: red;" ><?= $sio->_name ?></td>
                           <td style="text-decoration: line-through red; color: red;" class="text-center"><?= date('d M Y', strtotime($sio->ex_date)) ?></td>
                         </tr>
+
                   <?php }else { ?>
 
                     <tr>

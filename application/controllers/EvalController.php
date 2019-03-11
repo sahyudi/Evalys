@@ -12,7 +12,6 @@ class EvalController extends CI_Controller {
 
 		$this->load->model('M_eval');
 		$this->load->helper('url');
-		$this->load->library('pdf');
 	}
 
 	public function index()
@@ -24,6 +23,10 @@ class EvalController extends CI_Controller {
 			'bank' => $this->M_eval->view_bank()
 			 );
 		$this->load->view('v_eval',$data);
+	}
+
+	function get_certifikat(){
+		$this->load->view('v_certifikat');
 	}
 
 	function ambil_user($id) {
@@ -70,10 +73,6 @@ class EvalController extends CI_Controller {
 
 		$created_at = date ('Y-m-d H:i:s');
 
-
-
-
-
 			$data = $this->db->query("
 								SELECT due_date,name FROM public.tb_ojt
 								WHERE tb_ojt.id = '".$id_ojt."'
@@ -106,7 +105,36 @@ class EvalController extends CI_Controller {
 		echo json_encode(array("status" => TRUE, "msg" => "Data registered successful"));
 	}
 
+	function telegram($msg) {
+	  
+	  $telegrambot = '645949649:AAHGMXg553to5HH0xNhuCdvZQHwRg_DN1dU' ;
+	  $telegramchatid = 240135524 ;
+
+	  $url='https://api.telegram.org/bot'.$telegrambot.'/sendMessage';$data=array('chat_id'=>$telegramchatid,'text'=>$msg);
+	  $options=array('http'=>array('method'=>'POST','header'=>"Content-Type:application/x-www-form-urlencoded\r\n",'content'=>http_build_query($data),),);
+	  
+	  $context=stream_context_create($options);
+	  $result=file_get_contents($url,false,$context);
+	  
+	  return $result;
+	}
+
+
+
 	function view_data(){
+
+		// $tl = $this->M_eval->view_data()->result();
+  //       $data2 = date('Y-m-d');
+
+		// foreach ($tl as $end) {
+  //         $data = date('Y-m-d', strtotime('-3month',strtotime($end->ex_date)));
+  //         $status = $end->status;
+
+  //         if ($data <= $data2 && $status == 'PASSED') { 
+  //         	 $msg = 'Licensi '.$end->ojt_name.' segera expire segera pada '.date('d M Y',strtotime($end->ex_date)).' segera Hubungi Training Center)';
+  //         		$this->telegram($msg);
+  //          }
+  //       } 
 		$data = array(
 			'user' => $this->M_eval->view_user(),
 			'end' => $this->M_eval->view_data()
@@ -124,12 +152,9 @@ class EvalController extends CI_Controller {
 			'view' => $this->M_eval->end_view($id)
 					);
 		$html = $this->load->view('v_laporan', $data);
-		// $data2 = $data['view']->result();
-		// print_r($data2);
 	}
 
 	function view_sio(){
-		// $dat= $this->input->post('id_user');
 		$data = array( 
 			'sio' => $this->M_eval->view_sio()
 					);
@@ -168,6 +193,21 @@ class EvalController extends CI_Controller {
 		$this->M_eval->delete_file($id);
 		$end_id = $this->input->post('end_id');
         $this->view_file($end_id);
+	}
+
+	function laporan_pdf(){
+
+		
+		$id = 23 ;
+	    $data = array(
+			'view' => $this->M_eval->end_view($id)->result()
+					);
+
+	    $this->load->library('pdf');
+	    $this->pdf->setPaper('A4', 'potrait');
+	    $this->pdf->filename = "laporan-petanikode.pdf";
+		// $this->pdf->load_view('v_laporan', $data);
+	    $this->pdf->load_view('laporan_pdf', $data);
 	}
 
 }

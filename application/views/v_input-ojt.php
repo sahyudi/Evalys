@@ -1,22 +1,9 @@
 <?php include $_SERVER['DOCUMENT_ROOT']."/hr_program/evalys/application/views/template/head.php"; ?>
 <!DOCTYPE html>
 <html>
-<title>Evaluation Form</title>
+<title>Evalys</title>
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Data Tables
-        <small>advanced tables</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
-      </ol>
-    </section>
-
     <section class="content">
       <div class="row">
         <div class="col-md-12">
@@ -28,25 +15,25 @@
               <div class="box-body">
                     <input type="hidden" class="form-control" id="id" name="id">
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">Code</label>
+                  <label class="col-md-2 control-label">Code *</label>
 
-                  <div class="col-sm-10">
+                  <div class="col-md-4">
                     <input type="text" class="form-control" required="true" autocomplete="off" id="kode" name="kode" placeholder="kode" maxlength="6" onkeyup="myUpper('kode')">
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">Name</label>
+                  <label class="col-md-2 control-label">Name *</label>
 
-                  <div class="col-sm-10">
+                  <div class="col-md-5">
                     <input type="text" class="form-control" required="true" autocomplete="off" id="name" name="name" placeholder="Name" onkeyup="myUpper('name')">
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">Validity Period</label>
+                  <label class="col-md-2 control-label">Validity Period *</label>
 
-                  <div class="col-sm-2">
+                  <div class="col-md-2">
                     <select class="form-control select2" id="due_date" name="due_date">
                       <option selected="selected" value=""> Select </option>
                       <option value="1"> 1 </option>
@@ -57,22 +44,21 @@
                       <option value="6"> 6 </option>
                     </select>
                   </div>
-                  <label class="control-label">Year</label>
-
-
-                  <!-- <div class="col-sm-10">
-                    <input type="text" class="form-control" required="true" autocomplete="off" id="due_date" name="due_date" placeholder="due_date" onkeyup="myUpper('name')">
-                  </div> -->
+                  <label class="col-sm-1 control-label">Year</label>
                 </div>
+                
+                <div class="row">
+                  <div class="col-xs-6">
+                    <!-- <div class="text-center"> -->
+                  <button type="submit" style="margin-right: 10%" id="submit" onclick="save();" class="btn btn-success pull-left" id="daterange-btn">
+                      <b>Save</b>
+                  </button>
 
-                <button type="submit" id="submit" onclick="kosong();" class="btn btn-default pull-left" id="daterange-btn">
-                     <b>cancel</b>
-                </button>
-                <button type="submit" id="submit" onclick="save();" class="btn btn-success pull-right" id="daterange-btn">
-                    <span>
-                      <i class="fa fa-save"></i> &nbsp; <b>Save</b>
-                    </span>
-                </button>
+                  <button type="submit" id="submit" onclick="kosong();" class="btn btn-default center pull-right" id="daterange-btn">
+                       <b>cancel</b>
+                  </button>
+                  </div>
+                </div>
               </div>
             </form>
           </div>          
@@ -142,28 +128,27 @@
             <span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title">Criteria List</h4>
         </div>
-         <div class="modal-body">
+         <div class="modal-body" style="padding-top: 0px; margin-top: -15px">
           <form class="form-horizontal" id="bank_form" validate="true">
             <div class="box-body" >
               <div class="form-group">
-                <h3 id="heading"></h3>
+                <h3 id="heading" style="font-weight: bold;"></h3>
               </div>
 
               <input type="hidden" name="ojt_id" id="ojt_id" value="">
               <div class="form-group">
-                  <label class="col-sm-3">Materi</label>
+                  <label class="col-md-2">Materi *</label>
 
-                  <div class="col-sm-9">
+                  <div class="col-md-9">
                     <input type="text" class="form-control" id="quest" name="quest" autocomplete="off">
                   </div>
               </div>
             </div>
             <div class="modal-footer">
+              <button type="button" class="btn btn-success" onclick="save2();">Save</button>
               <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" onclick="save2();">Save</button>
             </div>
           </form>
-
 
           <div id="load_bank">
           
@@ -192,7 +177,6 @@
       'ordering'    : false
     });
  
-    // Apply the search
     table.columns().every(function(){
         var that = this;
         $('input',this.header()).on('keyup change',function(){
@@ -202,7 +186,6 @@
         });
     });
 
-    // $('#competency_table_filter').hide();
 
 
   function myUpper(element_id) {
@@ -218,7 +201,14 @@
   }
 
   function save(){
-   
+    var kode = $('#kode').val();
+    var name = $('#name').val();
+    var due_date = $('select[name=due_date]').val();
+
+    if (kode == '' || name == '' || due_date == '') {
+      alert('required field * cannot empty');
+    }else {
+
       if(save_method=="add"){
         var _url=  "<?= site_url('/ojt/add')?>";
       }
@@ -243,27 +233,35 @@
         }
 
       });
+    }
   }
 
 
   function save2(){
-    if(save_method=="add"){ 
-      var _url=  "<?= site_url('/ojt/bank')?>";
-    }
-    else if(save_method=="update"){
-      var _url=  "<?= site_url('/bank/update')?>";
-    }
+    var quest = $('#quest').val();
 
-    $.ajax({
-      url: _url,
-      type: "POST",
-      data: $('#bank_form').serialize(),
-      // dataType: "JSON",
-      success: function(data){
-       $('#load_bank').html(data);
-       $('#quest').val(""); 
+    if (quest == '') {
+      alert('Required field (*) cannot empty');
+    }else { 
+
+      if(save_method=="add"){ 
+        var _url=  "<?= site_url('/ojt/bank')?>";
       }
-    });
+      else if(save_method=="update"){
+        var _url=  "<?= site_url('/bank/update')?>";
+      }
+
+      $.ajax({
+        url: _url,
+        type: "POST",
+        data: $('#bank_form').serialize(),
+        // dataType: "JSON",
+        success: function(data){
+         $('#load_bank').html(data);
+         $('#quest').val(""); 
+        }
+      });
+    }
   }
 
   function bank_delete(id){

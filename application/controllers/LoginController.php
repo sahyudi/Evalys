@@ -8,8 +8,6 @@ class LoginController extends CI_Controller {
 		$this->load->model('M_login');
 		$this->load->helper('url');
 
-
-
 	}
 
 	public function index(){
@@ -17,23 +15,33 @@ class LoginController extends CI_Controller {
 	}
 	
 	public function authentication(){
-		$nik = htmlspecialchars($_POST['NIK']);
+		$nik = $this->input->post('NIK');
+		$pass = $this->input->post('password');
 
-		$data = $this->M_login->get_data($nik)->result();
-
-		if(sizeof($data)){
-			// $this->load->view('v_eval.php');
+		if ($nik == '' || $pass == '') {
+			echo '<script> alert("Nik / password can not empty") </script>';
+				$this->load->view('login.php');	
 			
-			$user = array(
-				'nik' => $nik,
-				'name' => $data[0]->name,
-				'role' => $data[0]->role
-			);
-			// print_r($user);
-			$this->session->set_userdata($user);
-			redirect(site_url('/eval'));	
-		} else {
-			$this->load->view('login.php');	
+		}else{
+
+			$data = $this->M_login->get_data($nik)->result();
+
+			if(sizeof($data)){
+				// $this->load->view('v_eval.php');
+				
+				$user = array(
+					'nik' => $nik,
+					'role' => $data[0]->role
+				);
+				// print_r($user);
+				$this->session->set_userdata($user);
+				redirect(site_url('/eval'));	
+				// echo json_encode(array('failed' => 'true' ));
+			} else {
+				// echo json_encode(array('failed' => 'false' ));
+				echo '<script> alert("Username / password not valid") </script>';
+				$this->load->view('login.php');	
+			}
 		}
 	}
 

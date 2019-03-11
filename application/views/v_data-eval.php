@@ -1,22 +1,9 @@
 <?php include $_SERVER['DOCUMENT_ROOT']."/hr_program/evalys/application/views/template/head.php"; ?>
 <!DOCTYPE html>
 <html>
-<title>Evaluation Form</title>
+<title>Evalys</title>
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Data Tables
-        <small>advanced tables</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
-      </ol>
-    </section>
-
     <section class="content">
       <div class="row">
         <div class="col-md-12">
@@ -27,23 +14,23 @@
 
             <!-- /.box-header -->
             <div class="box-body table-responsive table-striped">
-              <button type="button" class="btn btn-info pull-right" data-toggle="modal" id="button_sio" data-target="#modal-info" onclick="reset_form();">myLisence</button>
+              <button type="button" class="btn btn-info pull-left" data-toggle="modal" id="button_sio" data-target="#modal-info" onclick="reset_form();">myLicense</button>
 
               <br><br>
               <form method="POST" id="save_data" >
                 <table class="table table-bordered" id="table_evaluation">
                   <thead>
                     <tr>
-                      <th>NO</th>
+                      <th style="text-align: center;">NO</th>
                       <th width="75" style="min-width: 75px; max-width: 75px;">Actions</th>
                       <th>Name</th>
                       <th>Unit of Competency</th>
                       <th>Assessor</th>
-                      <th>Acknowladge</th>
+                      <th>Acknowledge</th>
                       <th>OJT Date</th>
                       <th>Evaluation Date</th>
                       <th>Result</th>
-                      <th>Expired Date</th>
+                      <th>Expiry Date</th>
                     </tr>
                   </thead>
                         
@@ -54,19 +41,23 @@
 
                             foreach ($end->result() as $end) {
                               $data = date('Y-m-d', strtotime('-3month',strtotime($end->ex_date)));
-
-                          $no ++;
- 
-                        if ($data <= $data2) {
+                              $no ++; 
                       ?>
+                        
                         <tr>
-                          <td><?= $no ?></td>
-                          <td>
-                              <i class="fa fa-trash-o fa-lg" onclick="_delete(<?= $end->_id; ?>)"></i>&nbsp;
-                              <i class="fa fa-print fa-lg" id="" onclick="_view(<?= $end->_id; ?>)"></i>
-                              <i class="fa fa-book fa-lg btn-file" id="<?= $end->_id ?>" data-toggle="modal" data-target="#modal-upload"></i>
+
+                          <td style="text-align: center;"><?= $no ?></td>
+                          <td style="text-align: center;">
+                            <?php if ($this->session->role == 'admin') { ?>
+                              <i style="cursor: pointer;" class="fa fa-trash-o fa-lg" onclick="_delete(<?= $end->_id; ?>)"></i>
+                            <?php } ?>
+                              <i style="cursor: pointer;" class="fa fa-print fa-lg" id="" onclick="_view(<?= $end->_id; ?>)"></i>
+                              <i style="cursor: pointer;" class="fa fa-book fa-lg btn-file" id="<?= $end->_id ?>" data-toggle="modal" data-target="#modal-upload"></i>
                           </td>
-                          <td style="text-decoration: line-through red; color: red;"><?= $end->name ?></td>
+                             <?php
+                                    if ($data <= $data2) {
+                              ?>
+                          <td style="text-decoration: line-through red; color: red;"><?= $end->nik ?></td>
                           <td style="text-decoration: line-through red; color: red;"><?= $end->ojt_name ?></td>
                           <td style="text-decoration: line-through red; color: red;"><?= $end->assessor ?></td>
                           <td style="text-decoration: line-through red; color: red;"><?= $end->acknowledge ?></td>
@@ -79,14 +70,7 @@
 
                       <?php 
                         } else { ?>
-                        <tr>
-                          <td><?= $no ?></td>
-                          <td>
-                            <i class="fa fa-trash-o fa-lg" onclick="_delete(<?= $end->_id; ?>)"></i>&nbsp;
-                            <i class="fa fa-print fa-lg" id="" onclick="_view(<?= $end->_id; ?>)"></i>
-                            <i class="fa fa-book fa-lg btn-file" id="<?= $end->_id ?>" data-toggle="modal" data-target="#modal-upload"></i>
-                          </td>
-                          <td><?= $end->name ?></td>
+                          <td><?= $end->nik ?></td>
                           <td><?= $end->ojt_name ?></td>
                           <td><?= $end->assessor ?></td>
                           <td><?= $end->acknowledge ?></td>
@@ -148,15 +132,15 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Criteria List</h4>
+          <h4 class="modal-title">Criteria List *</h4>
         </div>
           <div class="modal-body">
             <form validate="true" id="upload-form" enctype="multipart/form-data">
               <input type="hidden" name="end_id" id="end_id" value="">
-              <input type="file" name="attachment" id="attachment">
+              <input type="file" class="form-control" name="attachment" id="attachment">
               <!-- <input type="file" name=""> -->
               <br>
-              <button type="button" onclick="save_upload();">Upload</button>
+              <button type="button" class="btn btn-success" onclick="save_upload();">Upload</button>
               
               <div id="file-data">
                 
@@ -231,6 +215,7 @@
         });
     }
     else{
+      $('#sio').html('')
     } 
       
   });
@@ -241,24 +226,28 @@
   }
 
   function save_upload(){
-
+    var attachment = $('#attachment').val();
     var form = $('#upload-form')[0];
     var formData = new FormData(form);
     var _url=  "<?= site_url('/upload')?>";
     formData.append('end_id', end_id);
+    if (attachment == '') {
+      alert('required field * cannot empty');
+    }else{
 
-    $.ajax({
-      url: _url,
-      type: "POST",
-      data: formData,
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function(data){
-       $('#file-data').html(data);
-       $('#attachment').val(""); 
-      }
-    });
+      $.ajax({
+        url: _url,
+        type: "POST",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(data){
+         $('#file-data').html(data);
+         $('#attachment').val(""); 
+        }
+      });
+    }
   }
 
   $('.btn-file').click(function(){

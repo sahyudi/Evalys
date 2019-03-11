@@ -30,24 +30,16 @@
   <div class="login-box-body">
     <!-- <p class="login-box-msg">Sign In</p> -->
 
-    <form action="<?= site_url('/auth') ?>" method="post">
+    <form action="<?= site_url('/auth')?>" id="login_form" method="post">
       <div class="form-group has-feedback">
-        <input type="Text" class="form-control" name="NIK" placeholder="NIK">
+        <input type="Text" class="form-control" id="nik" name="NIK" placeholder="NIK" required="true">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
+        <input type="password" id="password" name="password" class="form-control" required="true" placeholder="Password">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> Remember Me
-            </label>
-          </div>
-        </div>
-        <!-- /.col -->
         <div class="col-xs-4">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
         </div>
@@ -86,14 +78,6 @@
 <!-- SlimScroll -->
 <script src="<?= base_url().'assets/bower_components/select2/dist/js/select2.full.min.js'?>"></script>
 <script src="<?= base_url().'assets/plugins/iCheck/icheck.min.js'?>"></script>
-<script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' /* optional */
-    });
-  });
-</script>
+
 </body>
 </html>

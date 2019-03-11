@@ -3,32 +3,36 @@
 <html>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-<title>Home</title>
+<title>Evalys</title>
   <div class="content-wrapper">
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-md-12">
         <div class="box box-default">
           <div class="box-header with-border">
-            <h3 class="box-title">myLicence</h3>
+            <h3 class="box-title">myLicense</h3>
           </div>
           <div class="box-body">
             <div style="text-align: left;">
-              <button type="button" class="btn btn-info " data-toggle="modal" id="button_sio" onclick="reset_form();">Reset</button>
+              <button type="button" class="btn btn-info " data-toggle="modal" onclick="reset_form();">Reset</button>
             </div><br>
 
-
             <form id="form_sio" validate="true">
-              <select class="form-control select2" id="nik" name="nik" style="width: 100%;">
-                <option selected="selected" value=""> NIK </option>
-                  <?php 
-                    foreach ($user->result() as $user2) {
-                      echo '<option value="'.$user2->id.'">'.$user2->nik.' &nbsp;&nbsp; '.$user2->name.'</option>';
-                    }
-                  ?>
-              </select>
+              <div class="row">
+                <div class="col-md-4">
+                  <select class="form-control select2" id="nik" name="nik"">
+                    <option selected="selected" value=""> :: NIK :: </option>
+                      <?php 
+                        foreach ($user->result() as $user2) { ?>
+                          <option value="<?= $user2->id ?>"><span><?=$user2->nik?></span></option>
+                      <?php  }
+                      ?>
+                  </select>
+                </div>
+              </div>
               
               <div id="sio">  
               </div>
+
             </form>
           </div>
         </div>
@@ -70,8 +74,6 @@
 
   $('#nik').on("change", function(){
     var id_user = $('select[name=nik]').val();
-
-    // alert(id);
     var _url = "<?= site_url('/sio/view') ?>";
 
     if($('[name="nik"]').val()!="") {
@@ -85,13 +87,16 @@
         });
     }
     else{
+      alert('pelease select your nik !!');
+      $('[name="nik"]').val('');
+      $('#sio').empty();
     } 
       
   });
 
   function reset_form(){
     $('#sio').html('');
-    $('#nik').val("").trigger("change"); 
+    // $('#nik').val("").trigger("change"); 
 
 
   }
