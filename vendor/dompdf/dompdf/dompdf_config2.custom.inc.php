@@ -36,7 +36,7 @@ define("DOMPDF_DEFAULT_FONT", "dirmanfont, bunge-inline");
  * Additional documentation is available on the dompdf wiki at:
  * https://github.com/dompdf/dompdf/wiki
  */
-define("DOMPDF_CHROOT", DOMPDF_DIR . );
+define("DOMPDF_CHROOT", DOMPDF_DIR);
 //define("DOMPDF_ENABLE_PHP", false);
-//define("DOMPDF_ENABLE_REMOTE", false);
+define("DOMPDF_ENABLE_REMOTE", true);
 ?>

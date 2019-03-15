@@ -19,15 +19,15 @@ class M_ojt extends CI_Model{
 		return $query;
 	}
 
-	function view_bank(){
-		$query = $this->db->query("
-			SELECT ev.id AS _id, * FROM public.tb_eval ev 
-			INNER JOIN public.tb_ojt oj ON ev.ojt_id = oj.id
-			WHERE ev.ojt_id = 1
-			");
-		// $query2 = $query->result();
-		return $query;
-	}	
+	// function view_bank(){
+	// 	$query = $this->db->query("
+	// 		SELECT ev.id AS _id, * FROM public.tb_eval ev 
+	// 		INNER JOIN public.tb_ojt oj ON ev.ojt_id = oj.id
+	// 		WHERE ev.ojt_id = 1
+	// 		");
+	// 	// $query2 = $query->result();
+	// 	return $query;
+	// }	
 
 	function input_data($dt){
 		$this->db->insert($this->ojt, $dt);

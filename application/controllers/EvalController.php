@@ -105,12 +105,12 @@ class EvalController extends CI_Controller {
 		echo json_encode(array("status" => TRUE, "msg" => "Data registered successful"));
 	}
 
-	function telegram($msg) {
+	function telegram($msg, $telegram_id) {
 	  
 	  $telegrambot = '645949649:AAHGMXg553to5HH0xNhuCdvZQHwRg_DN1dU' ;
-	  $telegramchatid = 240135524 ;
+	  // $telegramchatid = 384920975 ;
 
-	  $url='https://api.telegram.org/bot'.$telegrambot.'/sendMessage';$data=array('chat_id'=>$telegramchatid,'text'=>$msg);
+	  $url='https://api.telegram.org/bot'.$telegrambot.'/sendMessage';$data=array('chat_id'=>$telegram_id,'text'=>$msg);
 	  $options=array('http'=>array('method'=>'POST','header'=>"Content-Type:application/x-www-form-urlencoded\r\n",'content'=>http_build_query($data),),);
 	  
 	  $context=stream_context_create($options);
@@ -119,22 +119,42 @@ class EvalController extends CI_Controller {
 	  return $result;
 	}
 
+	function send_notif_telegram(){
+		$tl = $this->M_eval->get_send_notif()->result();
+
+		$link = 'http://localhost/hr_program/evalys/index.php/home';
+
+        $data2 = date('Y-m-d');
+
+
+		foreach ($tl as $end) {
+          $data = date('Y-m-d', strtotime('-3month',strtotime($end->ex_date)));
+          $nik[0] = $end->user_id;
+          $status = $end->status;
+          $telegram_id = $end->telegram_id;
+          
+          if ($data <= $data2 && $status == 'PASSED') { 
+          	 $msg = 'Licensi '.$end->ojt_name.' segera expire segera pada '.date('d M Y',strtotime($end->ex_date)).' segera Hubungi Training Center coba cek kembali di' .$link.'';
+          		$this->telegram($msg, $telegram_id);
+           }
+        } 
+	  $this->view_data();
+
+	}
 
 
 	function view_data(){
-
 		// $tl = $this->M_eval->view_data()->result();
   //       $data2 = date('Y-m-d');
-
 		// foreach ($tl as $end) {
   //         $data = date('Y-m-d', strtotime('-3month',strtotime($end->ex_date)));
   //         $status = $end->status;
-
   //         if ($data <= $data2 && $status == 'PASSED') { 
   //         	 $msg = 'Licensi '.$end->ojt_name.' segera expire segera pada '.date('d M Y',strtotime($end->ex_date)).' segera Hubungi Training Center)';
   //         		$this->telegram($msg);
   //          }
   //       } 
+
 		$data = array(
 			'user' => $this->M_eval->view_user(),
 			'end' => $this->M_eval->view_data()
@@ -149,18 +169,31 @@ class EvalController extends CI_Controller {
 								WHERE id = '".$id."'
 								")-> result();
 
+		$data2 = $this->db->query("
+								SELECT name_file FROM public.tb_tmpr
+								WHERE tb_tmpr.end_id = '".$id."'
+								")-> result();
+
+
 		$user_id = $data[0]->user_id;
 		$created_at = $data[0]->created_at;
 
-		print_r($data);
+		// print_r($data2);
 
-		// echo $data[0]->user_id;
-		// echo 
+		// $hasil = $data2 as $makan;
+
+    	if (is_array($data2)){
+    		foreach ($data2 as $del) {
+    			unlink(FCPATH.'/upload/'.$del->name_file);
+    		}
+    	}
+
+
 		$this->M_eval->delete_value($user_id, $created_at);
 		$this->M_eval->delete_eval($id); 
 		$this->M_eval->delete_file2($id); 
 
-		echo json_encode(array("status" => 'TRUE', "msg" => "Data deleted successful"));
+		echo json_encode(array("status" => TRUE, "msg" => "Data deleted successful"));
 	}
 
 	function end_view($id){
@@ -214,7 +247,7 @@ class EvalController extends CI_Controller {
 	function laporan_pdf(){
 
 		
-		$id = 23 ;
+		$id = 43 ;
 	    $data = array(
 			'view' => $this->M_eval->end_view($id)->result()
 					);

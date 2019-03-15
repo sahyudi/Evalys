@@ -29,6 +29,10 @@
             padding-top: 0.5cm;
             padding-bottom: 0.5cm;
           }
+
+          div.chapter, div.appendix {
+              page-break-after: always;
+          }
   </style>
   <page size="A4" >
   <body>

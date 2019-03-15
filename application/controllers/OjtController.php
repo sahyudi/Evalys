@@ -26,22 +26,6 @@ class OjtController extends CI_Controller {
 		$this->load->view('v_input-ojt', $data);
 	}
 
-	public function laporan_pdf(){
-
-        $data = array(
-            "dataku" => array(
-                "nama" => "Petani Kode",
-                "url" => "http://petanikode.com"
-            )
-        );
-
-        $this->load->library('pdf');
-
-        $this->pdf->setPaper('A4', 'potrait');
-        $this->pdf->filename = "laporan-petanikode.pdf";
-        $this->pdf->load_view('laporan_test', $data);
-    }
-
 	function view_bank($ojt_id){
 		$data =  array(
 				'bank' => $this->db->query("

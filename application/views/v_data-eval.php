@@ -15,6 +15,7 @@
             <!-- /.box-header -->
             <div class="box-body table-responsive table-striped">
               <button type="button" class="btn btn-info pull-left" data-toggle="modal" id="button_sio" data-target="#modal-info" onclick="reset_form();">myLicense</button>
+              <button type="button" style="margin-left: 5px;" class="btn btn-warning" data-toggle="modal" id="button_sio" data-target="#modal-info" onclick="reset_form();">myLicense</button>
 
               <br><br>
               <form method="POST" id="save_data" >
@@ -118,8 +119,7 @@
             </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-          <!-- <button type="button" class="btn btn-outline">Save changes</button> -->
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -138,7 +138,6 @@
             <form validate="true" id="upload-form" enctype="multipart/form-data">
               <input type="hidden" name="end_id" id="end_id" value="">
               <input type="file" class="form-control" name="attachment" id="attachment">
-              <!-- <input type="file" name=""> -->
               <br>
               <button type="button" class="btn btn-success" onclick="save_upload();">Upload</button>
               
@@ -149,8 +148,6 @@
             </form>
           </div>
         <div class="modal-footer">
-          <!-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button> -->
-          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
         </div>
       </div>
     </div>
@@ -180,12 +177,8 @@
         type: "POST",
         dataType: "JSON",
         success: function(data){
-          if(data.status=='TRUE'){
             alert(data.msg);
             location.reload();
-          } else {
-            alert(data.msg);
-          }
         }
       });
     }

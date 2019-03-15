@@ -48,16 +48,16 @@ class M_eval extends CI_Model{
 		return $query;
 	}
 
-	function view_sio(){
-		// $id= $this->input->post('id_user');
+	// function view_sio(){
+	// 	$id= $this->input->post('id_user');
 
-		// $query = $this->db->query("
-		// 					SELECT DISTINCT ON (remark) E.remark AS ojt_name, * FROM public.tb_end E 
-		// 					JOIN public.tb_user U ON E.user_id = U.id
-		// 					where E.status = 'PASSED' AND E.id_user = ".$id."
-		// 					");
-		// return $query;
-	}
+	// 	$query = $this->db->query("
+	// 						SELECT DISTINCT ON (remark) E.remark AS ojt_name, * FROM public.tb_end E 
+	// 						JOIN public.tb_user U ON E.user_id = U.id
+	// 						where E.status = 'PASSED' AND E.id_user = ".$id."
+	// 						");
+	// 	return $query;
+	// }
 
 	function view_bank(){
 		$this->db->from($this->eval);
@@ -93,6 +93,15 @@ class M_eval extends CI_Model{
 		$query = $this->db->query("
 				SELECT id AS _id, remark AS ojt_name, * FROM Public.tb_end 
 				ORDER BY id DESC
+				");
+		return $query;
+	}
+
+	function get_send_notif(){
+		$query = $this->db->query("
+				SELECT E.id AS _id, E.remark AS ojt_name, * FROM Public.tb_end E
+				JOIN public.tb_telegram T ON E.user_id = T.emp_nik
+				-- ORDER BY E.id DESC
 				");
 		return $query;
 	}
@@ -148,6 +157,7 @@ class M_eval extends CI_Model{
             if (move_uploaded_file($_FILES['attachment']['tmp_name'], $path)) {
                 $foto = $file_name;
             }
+            
              $hasil=$this->db->query("INSERT INTO tb_tmpr(end_id,name_file) VALUES ('".$end_id."','".$foto."')");
     }
 

@@ -82,7 +82,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control pull-right" id="datepicker" autocomplete="off">
+                      <input type="text" class="form-control pull-right" id="datepicker" autocomplete="off" style="cursor: pointer;">
                     </div>
                   </div>
                 </div>
@@ -94,7 +94,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control pull-right" id="datepicker1" autocomplete="off">
+                      <input type="text" class="form-control pull-right" id="datepicker1" autocomplete="off" style="cursor: pointer;">
                     </div>
                   </div>
                 </div>
@@ -147,12 +147,13 @@
     // $('#cie_tabel').hide();
     $('.hide1').hide();
     $('#datepicker').datepicker({
-      dateFormat: 'dd-mm-yyyy',
-      autoclose: true
+        dateFormat: 'dd-mm-yyyy',
+        cursor: 'pointer',
+        autoclose: true,
       });
     $('#datepicker1').datepicker({
-      dateFormat: 'dd-mm-yyyy',
-      autoclose: true
+        dateFormat: 'dd-mm-yyyy',
+        autoclose: true
       });
   $(document).ready(function(){
     

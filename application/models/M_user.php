@@ -2,6 +2,7 @@
 class M_User extends CI_Model{
 
 	var $user = 'public.tb_user';
+	var $telegram = 'public.tb_telegram';
 	
 
 	public function __construct(){
@@ -15,28 +16,54 @@ class M_User extends CI_Model{
 		return $query;
 	}
 
-	function input_data($dt){
+	function get_telegram(){
+		$query = $this->db->query("
+			SELECT * FROM public.tb_telegram ");
+		return $query;
+	}
+
+	function add_user($dt){
 		$this->db->insert($this->user, $dt);
 		return $this->db->insert_id();
 	}
 
-	function delete_bank($id){ //fungsi delete berdasarkan id
+	function add_id_telegram($dt){
+		$this->db->insert($this->telegram, $dt);
+		return $this->db->insert_id();
+	}
+
+	
+
+	function delete_user($id){ //fungsi delete berdasarkan id
 	    $this->db->where('id',$id); //pencocokan id, dimana id_transaksi == inputan $id_transaksi
-	    $this->db->delete($this->eval); //eksekusi
+	    $this->db->delete($this->user); //eksekusi
 	    return;
 	}
 
-	function edit_bank($id){		
+	function delete_telegram($id){ //fungsi delete berdasarkan id
+	    $this->db->where('id',$id); //pencocokan id, dimana id_transaksi == inputan $id_transaksi
+	    $this->db->delete($this->telegram); //eksekusi
+	    return;
+	}
+
+	function edit_user($id){		
 		$query= $this->db->query("
-			SELECT ev.id AS _id, * FROM public.tb_eval ev 
-			INNER JOIN public.tb_ojt oj ON ev.ojt_id = oj.id
-			WHERE ev.id = '$id'
+			SELECT * FROM public.tb_user 
+			WHERE tb_user.id = '$id'
+			");
+		return $query->row();
+	}
+
+	function edit_telegram($id){		
+		$query= $this->db->query("
+			SELECT * FROM public.tb_telegram 
+			WHERE tb_telegram.id = '$id'
 			");
 		return $query->row();
 	}
 
 	function update_data($where, $dt){
-		$this->db->update($this->eval,$dt, $where);
+		$this->db->update($this->user,$dt, $where);
 		return $this->db->affected_rows();
 	}
 

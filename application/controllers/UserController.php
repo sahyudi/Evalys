@@ -24,6 +24,15 @@ class UserController extends CI_Controller {
 		$this->load->view('v_user', $data);
 	}
 
+
+	function get_telegram(){
+
+		$data =  array(
+			'user' => $this->M_user->get_telegram()
+		);
+		$this->load->view('v_telegram', $data);
+	}
+
 	
 	function add_user(){
 		$data = array(
@@ -31,41 +40,61 @@ class UserController extends CI_Controller {
 			'role' => $this->input->post('role')
 		);
 
-		$insert_id = $this->M_user->input_data($data);
+		$this->M_user->add_user($data);
 
-		echo json_encode(array("status" => TRUE, "msg" => "Data registered successful"));
+		echo json_encode(array("status" => TRUE, "msg" => "Data saved successful"));
 	}
 
+	function add_id_telegram(){
+		$data = array(
+			'emp_nik' => $this->input->post('nik'),
+			'telegram_id' => $this->input->post('telegram_id')
+		);
 
-	function delete_bank($id){
-		$this->M_ojt->delete_bank($id);
-		$ojt_id = $this->input->post('ojt_id');
-		$this->view_bank($ojt_id);
+		$this->M_user->add_id_telegram($data);
+
+		echo json_encode(array("status" => TRUE, "msg" => "Data saved successful"));
 	}
 
-
-	function delete_ojt($id){
-		$this->M_ojt->delete_ojt($id); 
+	function delete_user($id){
+		$this->M_user->delete_user($id); 
 		echo json_encode(array("status" => TRUE, "msg" => "Data deleted successful"));
 
 	}
 
-	function edit_ojt($id){
-		$data=$this->M_ojt->edit_ojt($id);
+	function delete_telegram($id){
+		$this->M_user->delete_telegram($id); 
+		echo json_encode(array("status" => TRUE, "msg" => "Data deleted successful"));
+
+	}
+
+
+	function edit_user($id){
+		$data=$this->M_user->edit_user($id);
 		echo json_encode($data);
 	}
 
-	function update_ojt(){
+	function edit_telegram($id){
+		$data=$this->M_user->edit_telegram($id);
+		echo json_encode($data);
+	}
+
+	function update_user(){
 		$data = array(
-			'kode' => $this->input->post('kode'),
-			'name' => $this->input->post('name'),
-			'due_date' => $this->input->post('due_date')
+			'nik' => $this->input->post('update_nik'),
+			'role' => $this->input->post('role')
 		);
 
-		$this->M_ojt->update_data(array('id'=>$this->input->post('id')), $data);
+		$this->M_user->update_data(array('id'=>$this->input->post('user_id')), $data);
 		
 		echo json_encode(array("status" => TRUE, "msg" => "Data updated successful"));
 	}
+
+
+	
+
+	
+
 
 }
 

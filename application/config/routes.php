@@ -27,8 +27,16 @@ $route['cetak3'] = 'Report/pdf';
 
 
 $route['user'] = 'UserController/index';
+$route['telegram'] = 'UserController/get_telegram';
 $route['add-user'] = 'UserController/add_user';
+$route['delete-user/(:any)'] = 'UserController/delete_user/$1';
+$route['edit-user/(:any)'] = 'UserController/edit_user/$1';
+$route['update-user'] = 'UserController/update_user';
 
+//telegram
+$route['add-id_telegram'] = 'UserController/add_id_telegram';
+$route['delete-telegram/(:any)'] = 'UserController/delete_telegram/$1';
+$route['edit-telegram/(:any)'] = 'UserController/edit_telegram/$1';
 
 
 //eval
