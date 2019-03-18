@@ -32,11 +32,11 @@
 
 
                 <div class="text-center col-md-4">
-                  <button type="button" onclick="save();" class="btn btn-success pull-left" id="daterange-btn">
+                  <button type="button" onclick="save();" class="btn btn-success" id="daterange-btn">
                     <b>Save</b>
                   </button>
 
-                  <button type="button" onclick="kosong();" class="btn btn-default pull-right" id="daterange-btn">
+                  <button type="button" onclick="kosong();" class="btn btn-default " id="daterange-btn">
                     <b>cancel</b>
                   </button>
                 </div>
@@ -121,8 +121,8 @@
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-success pull-left" onclick="save_update();">Save</button>
-              <button type="button" class="btn btn-default pull-left" style="margin-left: 5px;" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success " onclick="save_update();">Save</button>
+              <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;" data-dismiss="modal">Close</button>
             </div>
           </form>
         </div>
@@ -240,7 +240,7 @@
         success: function(data){
 
           $('#user_id').val(data.id);
-          $('#update_nik').val(data.nik);
+          $('#update_nik').val(data.emp_nik);
           $('#update_telegram_id').val(data.telegram_id);
 
           // if ( data.role == 'admin') {

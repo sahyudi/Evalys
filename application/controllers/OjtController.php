@@ -73,6 +73,8 @@ class OjtController extends CI_Controller {
 
 
 	function delete_ojt($id){
+
+		$this->M_ojt->delete_all_bank($id); 
 		$this->M_ojt->delete_ojt($id); 
 		echo json_encode(array("status" => TRUE, "msg" => "Data deleted successful"));
 

@@ -72,7 +72,7 @@ $route['ojt/update'] = 'OjtController/update_ojt';
 
 
 //Bank soal
-$route['bank'] = 'BankController/index';
-$route['bank/add'] = 'BankController/add_bank';
-$route['bank/edit/(:any)'] = 'BankController/edit_bank/$1';
-$route['bank/update'] = 'BankController/update_bank';
+// $route['bank'] = 'BankController/index';
+// $route['bank/add'] = 'BankController/add_bank';
+// $route['bank/edit/(:any)'] = 'BankController/edit_bank/$1';
+// $route['bank/update'] = 'BankController/update_bank';

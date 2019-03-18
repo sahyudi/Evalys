@@ -31,6 +31,9 @@
                     <label class="radio-inline">
                       <input type="radio" name="role" id="role2" value="admin" >Admin
                     </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="role" id="role3" value="acknowledge" >Acknowledge
+                    </label>
                   </div>
                 </div>
 
@@ -122,6 +125,9 @@
                     </label>
                     <label class="radio-inline">
                       <input type="radio" name="role" id="update_role2" value="admin" >Admin
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="role" id="update_role3" value="acknowledge" >Acknowledge
                     </label>
                   </div>
                 </div>
@@ -247,7 +253,11 @@
 
           if ( data.role == 'admin') {
             $('#update_role2').prop('checked', true);
-          }else {
+          }else if (data.role == 'acknowledge') {
+            $('#update_role3').prop('checked', true);
+
+          }
+          else {
             $('#update_role1').prop('checked', true);
           }
           

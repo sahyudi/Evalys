@@ -146,7 +146,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-success" onclick="save2();">Save</button>
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal" onclick="kosong2()">Close</button>
             </div>
           </form>
 
@@ -321,12 +321,16 @@
 
       });
   }
-
+///////// baru update keserver
   function kosong(){
     $('#ojt_form')[0].reset();
     $('[name="due_date"]').val("").trigger('change');
   }
 
+  function kosong2(){
+    $('#bank_form')[0].reset();
+  }
+///////
 
 
   $('.btn-judul').click(function(){

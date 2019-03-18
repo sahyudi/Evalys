@@ -22,8 +22,8 @@
                 <table class="table table-bordered" id="table_evaluation">
                   <thead>
                     <tr>
-                      <th style="text-align: center;">NO</th>
-                      <th width="75" style="min-width: 75px; max-width: 75px;">Actions</th>
+                      <th style="text-align: center;">No</th>
+                      <th width="75" style="min-width: 85px; max-width: 85px;">Actions</th>
                       <th>Name</th>
                       <th>Unit of Competency</th>
                       <th>Assessor</th>
@@ -53,6 +53,7 @@
                               <i style="cursor: pointer;" class="fa fa-trash-o fa-lg" onclick="_delete(<?= $end->_id; ?>)"></i>
                             <?php } ?>
                               <i style="cursor: pointer;" class="fa fa-print fa-lg" id="" onclick="_view(<?= $end->_id; ?>)"></i>
+                              <i style="cursor: pointer;" class="fa fa-certificate fa-lg" id="" onclick="_certifikat(<?= $end->_id; ?>)"></i>
                               <i style="cursor: pointer;" class="fa fa-book fa-lg btn-file" id="<?= $end->_id ?>" data-toggle="modal" data-target="#modal-upload"></i>
                           </td>
                              <?php

@@ -33,7 +33,13 @@ class M_ojt extends CI_Model{
 		$this->db->insert($this->ojt, $dt);
 		return $this->db->insert_id();
 	}
-
+///////query baru update ke server
+	function delete_all_bank($ojt_id){
+		 $this->db->where('ojt_id',$ojt_id); 
+	    $this->db->delete($this->eval);
+	    return;
+	}
+//////////////
 	function input_bank($dt){
 		$this->db->insert($this->eval, $dt);
 		return $this->db->insert_id();

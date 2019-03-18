@@ -8,7 +8,9 @@ class EvalController extends CI_Controller {
 		if ($this->session->nik == null){
 			redirect(Site_url('login'));
 		}
-
+		// if ($this->session->role != 'admin') {
+		// 		$this->load->view('v_error');
+		// }
 
 		$this->load->model('M_eval');
 		$this->load->helper('url');
@@ -125,19 +127,47 @@ class EvalController extends CI_Controller {
 		$link = 'http://localhost/hr_program/evalys/index.php/home';
 
         $data2 = date('Y-m-d');
+        // $msg = 'Pesan kosong';
+        $array_nik = array(); // tampung per nik (DISTINCT)
+        $array_content = array();
+        $array_tg_id = array();
+        // $idx = 0;
 
-
+        // PENGOLAHAN DARI DB
 		foreach ($tl as $end) {
           $data = date('Y-m-d', strtotime('-3month',strtotime($end->ex_date)));
-          $nik[0] = $end->user_id;
+          $nik = $end->user_id;
           $status = $end->status;
           $telegram_id = $end->telegram_id;
           
           if ($data <= $data2 && $status == 'PASSED') { 
-          	 $msg = 'Licensi '.$end->ojt_name.' segera expire segera pada '.date('d M Y',strtotime($end->ex_date)).' segera Hubungi Training Center coba cek kembali di' .$link.'';
-          		$this->telegram($msg, $telegram_id);
+          	if(!in_array($nik, $array_nik)){
+          	 	// cek nik yang mulainya dengan 0
+          	 	$array_nik[] = $nik;
+          	 	$array_tg_id[strval($nik)] = $telegram_id;
+			}
+
+          	$msg = 'Licensi '.$end->ojt_name.' segera expire segera pada '.date('d M Y',strtotime($end->ex_date)).' /n/n/n';
+
+          	if(empty($array_content[strval($nik)])){
+          		$array_content[strval($nik)] = $msg;
+          	} else {
+          		$array_content[strval($nik)] .= $msg;
+          	}
+          	
+
            }
         } 
+
+        // PENGIRIMAN TELEGRAM
+        for ($i=0; $i < sizeof($array_nik) ; $i++) {
+
+        	// print_r($array_content[strval($array_nik[$i])]);
+        	// exit;
+          	$this->telegram($array_content[$array_nik[$i]], $array_tg_id[$array_nik[$i]]);
+
+        }
+
 	  $this->view_data();
 
 	}
@@ -253,10 +283,69 @@ class EvalController extends CI_Controller {
 					);
 
 	    $this->load->library('pdf');
-	    $this->pdf->setPaper('A4', 'potrait');
+	    $this->pdf->setPaper('A4', 'landscape');
 	    $this->pdf->filename = "laporan-petanikode.pdf";
 		// $this->pdf->load_view('v_laporan', $data);
-	    $this->pdf->load_view('laporan_pdf', $data);
+	    // $this->pdf->load_view('laporan_pdf', $data);
+	    $this->pdf->load_view('v_certifikat');
 	}
+
+
+	function print_evaluation(){
+       //     load library
+        $id = 43 ;
+	    $data = array(
+			'view' => $this->M_eval->end_view($id)
+					);
+
+	    $data2 = $data['view']->result();
+
+	    $name = $data2[0]->user_id; //nanti diganti dengan nama
+	    $ojt_name = $data2[0]->ojt_name;
+
+	    // print_r($name);
+        ini_set('memory_limit', '256M'); 
+       
+       // boost the memory limit if it's low ;)
+        $this->load->library('pdf');
+        $pdf = $this->pdf->load();
+
+        $html = $this->load->view('laporan_test', $data, true);
+
+       // render the view into HTML
+        $pdf->WriteHTML($html); // write the HTML into the PDF
+        $output = 'evaluation_form_' .$ojt_name.'_'.$name . '_.pdf';
+        $pdf->Output("$output", 'I'); // save to file because we can
+        exit();
+    }
+
+    function print_certifikat(){
+       //     load library
+
+
+        $id = 43 ;
+	    $data = array(
+			'data' => $this->M_eval->get_certifikat($id)
+					);
+	    $data2 = $data[data]->result();
+
+	    $name = $data2[0]->user_id; //nanti diganti dengan nama
+	    $ojt_name = $data2[0]->remark;
+        
+
+        $this->load->library('pdf');
+        $pdf = $this->pdf->load();
+
+       	// print_r($name);
+        ini_set('memory_limit', '256M'); 
+        $html = $this->load->view('v_certifikat', $data, true);
+		
+		//untuk margin landscape       
+        $pdf->addPage('L');
+        $pdf->WriteHTML($html); // write the HTML into the PDF
+        $output = 'certifikat_' .$ojt_name.'_'.$name . '_.pdf';
+        $pdf->Output("$output", 'I'); // save to file because we can
+        exit();
+    }
 
 }

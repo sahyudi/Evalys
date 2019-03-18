@@ -37,6 +37,14 @@ class M_eval extends CI_Model{
 		return $query;
 	}
 
+	function get_certifikat($id){
+		$query = $this->db->query("
+							SELECT * FROM Public.tb_end 
+							WHERE tb_end.id = ".$id."
+				");
+		return $query;
+	}
+
 	function ambil_user($id){
 		$query = $this->db->query("SELECT * from public.tb_user where id = ".$id."") ;	
 		return $query->row();
@@ -169,6 +177,19 @@ class M_eval extends CI_Model{
 							");
 		return $query;
     }
+
+    function get_items(){
+	    // $this->db->order_by("it_created", "asc");
+	    // $result = $this->db->get("d_items");
+	 //    $this->db->from($this->ojt);
+		// $result=$this->db->get();
+	 //    return $result->result_array();
+    	$query = $this->db->query("
+				SELECT id AS _id, remark AS ojt_name, * FROM Public.tb_end 
+				ORDER BY id DESC
+				");
+		return $query;
+	}
     
 }
 
