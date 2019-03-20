@@ -51,8 +51,9 @@ class M_home extends CI_Model{
 		$dat = $this->input->post('id_user');
 		$query = $this->db->query("
 							SELECT remark as ojt_name, user_id as nik,  MAX(ex_date) as ex_date FROM public.tb_end
-							WHERE status = 'PASSED' AND user_id = ".$dat."
+							WHERE status = 'PASSED' AND user_id = '".$dat."'
 							GROUP BY (remark), user_id
+							
 				");
 		return $query;
 	}

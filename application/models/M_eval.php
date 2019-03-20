@@ -36,7 +36,7 @@ class M_eval extends CI_Model{
 				");
 		return $query;
 	}
-
+//////////////////////////// update ke online server
 	function get_certifikat($id){
 		$query = $this->db->query("
 							SELECT * FROM Public.tb_end 
@@ -44,6 +44,7 @@ class M_eval extends CI_Model{
 				");
 		return $query;
 	}
+////////////////////////////
 
 	function ambil_user($id){
 		$query = $this->db->query("SELECT * from public.tb_user where id = ".$id."") ;	
@@ -55,17 +56,6 @@ class M_eval extends CI_Model{
 		$query=$this->db->get();
 		return $query;
 	}
-
-	// function view_sio(){
-	// 	$id= $this->input->post('id_user');
-
-	// 	$query = $this->db->query("
-	// 						SELECT DISTINCT ON (remark) E.remark AS ojt_name, * FROM public.tb_end E 
-	// 						JOIN public.tb_user U ON E.user_id = U.id
-	// 						where E.status = 'PASSED' AND E.id_user = ".$id."
-	// 						");
-	// 	return $query;
-	// }
 
 	function view_bank(){
 		$this->db->from($this->eval);
@@ -126,7 +116,7 @@ class M_eval extends CI_Model{
 	    return;
 	}
 
-	//////////////////////////////////////////////////query baru update ke pak dirman
+//////////////////////////////////////////////////query baru update ke pak dirman
 
 	function delete_value($id,$time){ 
 
@@ -146,7 +136,7 @@ class M_eval extends CI_Model{
 		return $query;
 	}
 
-	///////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 
 
 	function save(){
@@ -178,19 +168,16 @@ class M_eval extends CI_Model{
 		return $query;
     }
 
+
+///////// update ke online server
     function get_items(){
-	    // $this->db->order_by("it_created", "asc");
-	    // $result = $this->db->get("d_items");
-	 //    $this->db->from($this->ojt);
-		// $result=$this->db->get();
-	 //    return $result->result_array();
     	$query = $this->db->query("
 				SELECT id AS _id, remark AS ojt_name, * FROM Public.tb_end 
 				ORDER BY id DESC
 				");
 		return $query;
 	}
-    
+//////////////////////////////   
 }
 
 ?>

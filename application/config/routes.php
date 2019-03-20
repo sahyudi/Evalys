@@ -54,10 +54,10 @@ $route['eval/view'] = 'EvalController/view_eval';
 $route['eval/save'] = 'EvalController/save_eval';
 $route['eval/view-data'] = 'EvalController/view_data';
 $route['end/delete/(:any)'] = 'EvalController/delete_eval/$1';
-$route['end/view/(:any)'] = 'EvalController/end_view/$1';
+$route['end/view/(:any)'] = 'EvalController/print_evaluation/$1';
 $route['end/view-docum'] = 'EvalController/view_docum';
-$route['laporan/(:any)'] = 'EvalController/end_view/$1';
-$route['certifikat'] = 'EvalController/get_certifikat';
+$route['Sent-notif'] = 'EvalController/send_notif_telegram';
+$route['certifikat/(:any)'] = 'EvalController/get_certifikat/$1';
 
 
 

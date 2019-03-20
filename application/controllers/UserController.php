@@ -24,16 +24,6 @@ class UserController extends CI_Controller {
 		$this->load->view('v_user', $data);
 	}
 
-
-	function get_telegram(){
-
-		$data =  array(
-			'user' => $this->M_user->get_telegram()
-		);
-		$this->load->view('v_telegram', $data);
-	}
-
-	
 	function add_user(){
 		$data = array(
 			'nik' => $this->input->post('nik'),
@@ -45,37 +35,14 @@ class UserController extends CI_Controller {
 		echo json_encode(array("status" => TRUE, "msg" => "Data saved successful"));
 	}
 
-	function add_id_telegram(){
-		$data = array(
-			'emp_nik' => $this->input->post('nik'),
-			'telegram_id' => $this->input->post('telegram_id')
-		);
-
-		$this->M_user->add_id_telegram($data);
-
-		echo json_encode(array("status" => TRUE, "msg" => "Data saved successful"));
-	}
-
 	function delete_user($id){
 		$this->M_user->delete_user($id); 
 		echo json_encode(array("status" => TRUE, "msg" => "Data deleted successful"));
 
 	}
 
-	function delete_telegram($id){
-		$this->M_user->delete_telegram($id); 
-		echo json_encode(array("status" => TRUE, "msg" => "Data deleted successful"));
-
-	}
-
-
 	function edit_user($id){
 		$data=$this->M_user->edit_user($id);
-		echo json_encode($data);
-	}
-
-	function edit_telegram($id){
-		$data=$this->M_user->edit_telegram($id);
 		echo json_encode($data);
 	}
 
@@ -90,11 +57,38 @@ class UserController extends CI_Controller {
 		echo json_encode(array("status" => TRUE, "msg" => "Data updated successful"));
 	}
 
+/////////////////////update ke pak dirman
+	function get_telegram(){
 
-	
+		$data =  array(
+			'user' => $this->M_user->get_telegram()
+		);
+		$this->load->view('v_telegram', $data);
+	}
 
-	
+	function add_id_telegram(){
+		$data = array(
+			'emp_nik' => $this->input->post('nik'),
+			'telegram_id' => $this->input->post('telegram_id')
+		);
 
+		$this->M_user->add_id_telegram($data);
+
+		echo json_encode(array("status" => TRUE, "msg" => "Data saved successful"));
+	}
+
+	function delete_telegram($id){
+		$this->M_user->delete_telegram($id); 
+		echo json_encode(array("status" => TRUE, "msg" => "Data deleted successful"));
+
+	}
+
+	function edit_telegram($id){
+		$data=$this->M_user->edit_telegram($id);
+		echo json_encode($data);
+	}
+
+/////////////////////
 
 }
 

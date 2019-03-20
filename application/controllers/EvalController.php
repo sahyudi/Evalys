@@ -27,9 +27,9 @@ class EvalController extends CI_Controller {
 		$this->load->view('v_eval',$data);
 	}
 
-	function get_certifikat(){
-		$this->load->view('v_certifikat');
-	}
+	// function get_certifikat(){
+	// 	$this->load->view('v_certifikat');
+	// }
 
 	function ambil_user($id) {
 		$data = $this->M_eval->ambil_user($id);
@@ -107,83 +107,9 @@ class EvalController extends CI_Controller {
 		echo json_encode(array("status" => TRUE, "msg" => "Data registered successful"));
 	}
 
-	function telegram($msg, $telegram_id) {
-	  
-	  $telegrambot = '645949649:AAHGMXg553to5HH0xNhuCdvZQHwRg_DN1dU' ;
-	  // $telegramchatid = 384920975 ;
-
-	  $url='https://api.telegram.org/bot'.$telegrambot.'/sendMessage';$data=array('chat_id'=>$telegram_id,'text'=>$msg);
-	  $options=array('http'=>array('method'=>'POST','header'=>"Content-Type:application/x-www-form-urlencoded\r\n",'content'=>http_build_query($data),),);
-	  
-	  $context=stream_context_create($options);
-	  $result=file_get_contents($url,false,$context);
-	  
-	  return $result;
-	}
-
-	function send_notif_telegram(){
-		$tl = $this->M_eval->get_send_notif()->result();
-
-		$link = 'http://localhost/hr_program/evalys/index.php/home';
-
-        $data2 = date('Y-m-d');
-        // $msg = 'Pesan kosong';
-        $array_nik = array(); // tampung per nik (DISTINCT)
-        $array_content = array();
-        $array_tg_id = array();
-        // $idx = 0;
-
-        // PENGOLAHAN DARI DB
-		foreach ($tl as $end) {
-          $data = date('Y-m-d', strtotime('-3month',strtotime($end->ex_date)));
-          $nik = $end->user_id;
-          $status = $end->status;
-          $telegram_id = $end->telegram_id;
-          
-          if ($data <= $data2 && $status == 'PASSED') { 
-          	if(!in_array($nik, $array_nik)){
-          	 	// cek nik yang mulainya dengan 0
-          	 	$array_nik[] = $nik;
-          	 	$array_tg_id[strval($nik)] = $telegram_id;
-			}
-
-          	$msg = 'Licensi '.$end->ojt_name.' segera expire segera pada '.date('d M Y',strtotime($end->ex_date)).' /n/n/n';
-
-          	if(empty($array_content[strval($nik)])){
-          		$array_content[strval($nik)] = $msg;
-          	} else {
-          		$array_content[strval($nik)] .= $msg;
-          	}
-          	
-
-           }
-        } 
-
-        // PENGIRIMAN TELEGRAM
-        for ($i=0; $i < sizeof($array_nik) ; $i++) {
-
-        	// print_r($array_content[strval($array_nik[$i])]);
-        	// exit;
-          	$this->telegram($array_content[$array_nik[$i]], $array_tg_id[$array_nik[$i]]);
-
-        }
-
-	  $this->view_data();
-
-	}
 
 
 	function view_data(){
-		// $tl = $this->M_eval->view_data()->result();
-  //       $data2 = date('Y-m-d');
-		// foreach ($tl as $end) {
-  //         $data = date('Y-m-d', strtotime('-3month',strtotime($end->ex_date)));
-  //         $status = $end->status;
-  //         if ($data <= $data2 && $status == 'PASSED') { 
-  //         	 $msg = 'Licensi '.$end->ojt_name.' segera expire segera pada '.date('d M Y',strtotime($end->ex_date)).' segera Hubungi Training Center)';
-  //         		$this->telegram($msg);
-  //          }
-  //       } 
 
 		$data = array(
 			'user' => $this->M_eval->view_user(),
@@ -274,26 +200,10 @@ class EvalController extends CI_Controller {
         $this->view_file($end_id);
 	}
 
-	function laporan_pdf(){
-
-		
-		$id = 43 ;
-	    $data = array(
-			'view' => $this->M_eval->end_view($id)->result()
-					);
-
-	    $this->load->library('pdf');
-	    $this->pdf->setPaper('A4', 'landscape');
-	    $this->pdf->filename = "laporan-petanikode.pdf";
-		// $this->pdf->load_view('v_laporan', $data);
-	    // $this->pdf->load_view('laporan_pdf', $data);
-	    $this->pdf->load_view('v_certifikat');
-	}
-
-
-	function print_evaluation(){
+///////////////////////////// update ke online server
+	function print_evaluation($id){
        //     load library
-        $id = 43 ;
+        // $id = 43 ;
 	    $data = array(
 			'view' => $this->M_eval->end_view($id)
 					);
@@ -319,11 +229,11 @@ class EvalController extends CI_Controller {
         exit();
     }
 
-    function print_certifikat(){
+    function get_certifikat($id){
        //     load library
 
 
-        $id = 43 ;
+        // $id = 43 ;
 	    $data = array(
 			'data' => $this->M_eval->get_certifikat($id)
 					);
@@ -347,5 +257,71 @@ class EvalController extends CI_Controller {
         $pdf->Output("$output", 'I'); // save to file because we can
         exit();
     }
+
+
+
+	function telegram($msg, $telegram_id) {
+	  
+	  $telegrambot = '645949649:AAHGMXg553to5HH0xNhuCdvZQHwRg_DN1dU' ;
+	  // $telegramchatid = 384920975 ;
+
+	  $url='https://api.telegram.org/bot'.$telegrambot.'/sendMessage';$data=array('chat_id'=>$telegram_id,'text'=>$msg);
+	  $options=array('http'=>array('method'=>'POST','header'=>"Content-Type:application/x-www-form-urlencoded\r\n",'content'=>http_build_query($data),),);
+	  
+	  $context=stream_context_create($options);
+	  $result=file_get_contents($url,false,$context);
+	  
+	  return $result;
+	}
+	function send_notif_telegram(){
+		$tl = $this->M_eval->get_send_notif()->result();
+
+		$link = 'http://localhost/hr_program/evalys/index.php/home';
+
+        $data2 = date('Y-m-d');
+        // $msg = 'Pesan kosong';
+        $array_nik = array(); // tampung per nik (DISTINCT)
+        $array_content = array();
+        $array_tg_id = array();
+        // $idx = 0;
+
+        // PENGOLAHAN DARI DB
+		foreach ($tl as $end) {
+          $data = date('Y-m-d', strtotime('-3month',strtotime($end->ex_date)));
+          $nik = $end->user_id;
+          $status = $end->status;
+          $telegram_id = $end->telegram_id;
+          
+          if ($data <= $data2 && $status == 'PASSED') { 
+          	if(!in_array($nik, $array_nik)){
+          	 	// cek nik yang mulainya dengan 0
+          	 	$array_nik[] = $nik;
+          	 	$array_tg_id[strval($nik)] = $telegram_id;
+			}
+
+          	$msg = "Licensi List anda yang akan berakhir \n".$end->ojt_name. "expiry pada : \n" .date("d M Y",strtotime($end->ex_date)."\n");
+
+          	if(empty($array_content[strval($nik)])){
+          		$array_content[strval($nik)] = $msg;
+          	} else {
+          		$array_content[strval($nik)] .= $msg;
+          	}
+          	
+
+           }
+        } 
+
+        // PENGIRIMAN TELEGRAM
+        for ($i=0; $i < sizeof($array_nik) ; $i++) {
+
+          	$this->telegram($array_content[$array_nik[$i]], $array_tg_id[$array_nik[$i]]);
+
+        }
+
+	  // $this->view_data();
+        redirect (site_url('eval/view-data'));
+
+	}
+////////////////////////////////////////////
 
 }

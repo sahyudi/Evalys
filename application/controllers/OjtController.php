@@ -19,10 +19,8 @@ class OjtController extends CI_Controller {
 	{
 
 		$data =  array(
-			// 'bank' => $this->M_ojt->view_bank(),
 			'ojt' => $this->M_ojt->view_items()
 		);
-		// echo json_encode($data);
 		$this->load->view('v_input-ojt', $data);
 	}
 

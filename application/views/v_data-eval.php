@@ -14,10 +14,12 @@
 
             <!-- /.box-header -->
             <div class="box-body table-responsive table-striped">
-              <button type="button" class="btn btn-info pull-left" data-toggle="modal" id="button_sio" data-target="#modal-info" onclick="reset_form();">myLicense</button>
-              <button type="button" style="margin-left: 5px;" class="btn btn-warning" data-toggle="modal" id="button_sio" data-target="#modal-info" onclick="reset_form();">myLicense</button>
+              <button type="button" class="btn btn-success pull-left" data-toggle_2="tooltip" data-placeman="top" title="View License" data-toggle="modal" id="button_sio" data-target="#modal-info" onclick="reset_form();"><span class="fa fa-certificate ">&nbsp; myLicense </span></button>
+
+              <a href="<?= site_url('Sent-notif') ?>" data-toggle_2="tooltip" data-placeman="top" title="Sent Notification Telegram" class="btn btn-info" style="margin-left: 5px" ><span class="fa fa-telegram ">&nbsp; Telegram Notif</span> </a>
 
               <br><br>
+
               <form method="POST" id="save_data" >
                 <table class="table table-bordered" id="table_evaluation">
                   <thead>
@@ -50,11 +52,11 @@
                           <td style="text-align: center;"><?= $no ?></td>
                           <td style="text-align: center;">
                             <?php if ($this->session->role == 'admin') { ?>
-                              <i style="cursor: pointer;" class="fa fa-trash-o fa-lg" onclick="_delete(<?= $end->_id; ?>)"></i>
+                              <i style="cursor: pointer;" class="fa fa-trash-o fa-lg" data-toggle_2="tooltip" data-placeman="top" title="Delete data" onclick="_delete(<?= $end->_id; ?>)"></i>
                             <?php } ?>
-                              <i style="cursor: pointer;" class="fa fa-print fa-lg" id="" onclick="_view(<?= $end->_id; ?>)"></i>
-                              <i style="cursor: pointer;" class="fa fa-certificate fa-lg" id="" onclick="_certifikat(<?= $end->_id; ?>)"></i>
-                              <i style="cursor: pointer;" class="fa fa-book fa-lg btn-file" id="<?= $end->_id ?>" data-toggle="modal" data-target="#modal-upload"></i>
+                              <i style="cursor: pointer;" data-toggle_2="tooltip" data-placeman="top" title="Print form" class="fa fa-print fa-lg" id="" onclick="_view(<?= $end->_id; ?>)"></i>
+                              <i style="cursor: pointer;" data-toggle_2="tooltip" data-placeman="top" title="Certificate" class="fa fa-certificate fa-lg" id="" onclick="_certifikat(<?= $end->_id; ?>)"></i>
+                              <i style="cursor: pointer;" class="fa fa-book fa-lg btn-file" id="<?= $end->_id ?>" data-toggle_2="tooltip" data-placeman="top" title="Upload File" data-toggle="modal" data-target="#modal-upload"></i>
                           </td>
                              <?php
                                     if ($data <= $data2) {
@@ -169,6 +171,8 @@
     var table = $('#table_evaluation').DataTable({
       'ordering'    : false
     });
+
+    $('[data-toggle_2="tooltip"]').tooltip();   
   });
   
   function _delete(id){
@@ -185,8 +189,17 @@
     }
   }
 
+  function sent_notif(){
+
+  }
+
   function _view(id){
     var _url = "<?= site_url('/end/view/')?>"+id;
+    window.open(_url, "_blank");
+  }
+
+  function _certifikat(id){
+     var _url = "<?= site_url('/certifikat/')?>"+id;
     window.open(_url, "_blank");
   }
 
