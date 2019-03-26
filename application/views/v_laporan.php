@@ -53,6 +53,8 @@
         #footer {
             position: relative; /*only use for footer on last page*/
             bottom: 0;
+            padding-top: 15px;
+
             /*border-top: 0.1pt solid #aaa; use for under line in top title*/
         }
 
@@ -81,6 +83,17 @@
           page-break-after: always;
           border: 0;
           padding-top: 200px;
+        }
+
+
+        .footer {
+           position: fixed;
+           left: 0;
+           bottom: 0;
+           width: 100%;
+           background-color: black;
+           color: white;
+           text-align: center;
         }
   </style>
   <body>
@@ -151,6 +164,9 @@
       <tbody>
               <?php
                 $no = 1;  
+                for ($i=0; $i <10 ; $i++) { 
+                  # code...
+              
                 foreach ($test as $view){
                   if ( $view->value == 1){
                         $nilai = "PASSED";
@@ -167,7 +183,7 @@
         </tr>
               <?php
                $no ++;  
-             } 
+             }   }
               ?>
       </tbody>
       </table>
@@ -207,6 +223,7 @@
 
         </tr>
       </table>
-
+    <div class="footer">kamu baik deh</div>
   </body>
+
 </html>

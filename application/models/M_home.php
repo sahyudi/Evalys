@@ -46,7 +46,7 @@ class M_home extends CI_Model{
 		return $query->row();
 	}
 	
-
+//// update ke pak dirman
 	function view_data(){
 		$dat = $this->input->post('id_user');
 		$query = $this->db->query("

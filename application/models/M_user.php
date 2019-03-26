@@ -67,6 +67,11 @@ class M_User extends CI_Model{
 		return $this->db->affected_rows();
 	}
 
+	function update_data_telegram($where, $dt){
+		$this->db->update($this->telegram,$dt, $where);
+		return $this->db->affected_rows();
+	}
+
 	function view_ojt(){
 		$this->db->from($this->ojt);
 		$query=$this->db->get();

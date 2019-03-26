@@ -73,7 +73,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li>
           <a href="<?= site_url('home') ?>">
-            <i class="fa fa-home"></i><span>Home</span>
+            <i class="fa fa-home"></i> <span>Home</span>
             <span class="pull-right-container">
               <i class=" fa fa-pull-right"></i>
             </span>
@@ -85,7 +85,7 @@
 
         <li>
           <a href="<?= site_url('eval') ?>">
-            <i class="fa fa-wpforms"></i><span>Evaluation Form</span>
+            <i class="fa fa-wpforms"></i> <span>Evaluation Form</span>
             <span class="pull-right-container">
               <i class=" fa fa-pull-right"></i>
             </span>
@@ -94,7 +94,7 @@
 
         <li>
           <a href="<?= site_url('eval/view-data') ?>">
-            <i class="fa fa-credit-card"></i><span>myLicense</span>
+            <i class="fa fa-credit-card"></i> <span>myLicense</span>
             <span class="pull-right-container">
               <i class=" fa fa-pull-right"></i>
             </span>

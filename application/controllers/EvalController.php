@@ -134,9 +134,6 @@ class EvalController extends CI_Controller {
 		$user_id = $data[0]->user_id;
 		$created_at = $data[0]->created_at;
 
-		// print_r($data2);
-
-		// $hasil = $data2 as $makan;
 
     	if (is_array($data2)){
     		foreach ($data2 as $del) {
@@ -201,9 +198,9 @@ class EvalController extends CI_Controller {
 	}
 
 ///////////////////////////// update ke online server
-	function print_evaluation($id){
+	function print_evaluation(){
        //     load library
-        // $id = 43 ;
+        $id = 43 ;
 	    $data = array(
 			'view' => $this->M_eval->end_view($id)
 					);
@@ -217,33 +214,33 @@ class EvalController extends CI_Controller {
         ini_set('memory_limit', '256M'); 
        
        // boost the memory limit if it's low ;)
-        $this->load->library('pdf');
-        $pdf = $this->pdf->load();
+        $this->load->library('L_Pdf');
+        $_pdf = $this->l_pdf->_load();
 
-        $html = $this->load->view('laporan_test', $data, true);
+        $html = $this->load->view('v_laporan', $data, true);
 
-       // render the view into HTML
-        $pdf->WriteHTML($html); // write the HTML into the PDF
+      $_pdf->SetHTMLHeader('<h2>coba kamu</2>');
+        $_pdf->WriteHTML($html); // write the HTML into the PDF
         $output = 'evaluation_form_' .$ojt_name.'_'.$name . '_.pdf';
-        $pdf->Output("$output", 'I'); // save to file because we can
+        $_pdf->Output("$output", 'I'); // save to file because we can
         exit();
     }
 
-    function get_certifikat($id){
+    function get_certifikat(){
        //     load library
 
 
-        // $id = 43 ;
+        $id = 43 ;
 	    $data = array(
 			'data' => $this->M_eval->get_certifikat($id)
 					);
-	    $data2 = $data[data]->result();
+	    $data2 = $data['data']->result();
 
 	    $name = $data2[0]->user_id; //nanti diganti dengan nama
 	    $ojt_name = $data2[0]->remark;
         
 
-        $this->load->library('pdf');
+        $this->load->library('Pdf');
         $pdf = $this->pdf->load();
 
        	// print_r($name);
@@ -260,10 +257,10 @@ class EvalController extends CI_Controller {
 
 
 
-	function telegram($msg, $telegram_id) {
+	function telegram($msg) {
 	  
 	  $telegrambot = '645949649:AAHGMXg553to5HH0xNhuCdvZQHwRg_DN1dU' ;
-	  // $telegramchatid = 384920975 ;
+	  $telegramchatid = 384920975 ;
 
 	  $url='https://api.telegram.org/bot'.$telegrambot.'/sendMessage';$data=array('chat_id'=>$telegram_id,'text'=>$msg);
 	  $options=array('http'=>array('method'=>'POST','header'=>"Content-Type:application/x-www-form-urlencoded\r\n",'content'=>http_build_query($data),),);
@@ -283,6 +280,17 @@ class EvalController extends CI_Controller {
         $array_nik = array(); // tampung per nik (DISTINCT)
         $array_content = array();
         $array_tg_id = array();
+        $pembuka = "Hi Sobat !!!! \n
+				Saya MyLicense \n \n
+
+				Jangan lupa Kompetensi sobat akan habis masa berlakunya. \n";
+
+				// 1. Thread Inspection Level 1 - 5 May 2019
+				// 2. CNC Operator Level 1 - 6 May 2019
+
+				
+
+				
         // $idx = 0;
 
         // PENGOLAHAN DARI DB
@@ -299,14 +307,20 @@ class EvalController extends CI_Controller {
           	 	$array_tg_id[strval($nik)] = $telegram_id;
 			}
 
-          	$msg = "Licensi List anda yang akan berakhir \n".$end->ojt_name. "expiry pada : \n" .date("d M Y",strtotime($end->ex_date)."\n");
+          	$msg = $end->ojt_name. " expiry pada : \n" .date("d M Y",strtotime($end->ex_date)."\n");
 
           	if(empty($array_content[strval($nik)])){
           		$array_content[strval($nik)] = $msg;
           	} else {
           		$array_content[strval($nik)] .= $msg;
           	}
-          	
+          		$penutup = "SEGERA LAKUKAN PERPANJANGAN YA!!! \n
+							Jika tidak dilakukan perpanjangan kompetensi sobat akan expired.
+							Silahkan menghubungi Training Center di Ext. 108 atau 118
+							untuk melakukan perpanjangan. \n
+
+							Sukses Selalu!!";
+          		$kirim = $pembuka. "\n" .$array_content[strval($nik)]. "\n" . $penutup;
 
            }
         } 
@@ -314,7 +328,7 @@ class EvalController extends CI_Controller {
         // PENGIRIMAN TELEGRAM
         for ($i=0; $i < sizeof($array_nik) ; $i++) {
 
-          	$this->telegram($array_content[$array_nik[$i]], $array_tg_id[$array_nik[$i]]);
+          	$this->telegram($kirim);
 
         }
 

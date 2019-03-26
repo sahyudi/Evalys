@@ -1,7 +1,7 @@
 <?php
-    class pdf {
+    class Pdf {
      
-        function pdf()
+        function mypdf()
         {
             $CI = & get_instance();
             log_message('Debug', 'mPDF class is loaded.');

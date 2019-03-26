@@ -140,7 +140,7 @@
           <div class="modal-body">
             <form validate="true" id="upload-form" enctype="multipart/form-data">
               <input type="hidden" name="end_id" id="end_id" value="">
-              <input type="file" class="form-control" name="attachment" id="attachment">
+              <input type="file" class="form-control" name="attachment[]" id="attachment[]">
               <br>
               <button type="button" class="btn btn-success" onclick="save_upload();">Upload</button>
               

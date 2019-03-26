@@ -88,6 +88,17 @@ class UserController extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	function update_telegram(){
+		$data = array(
+			'emp_nik' => $this->input->post('update_nik'),
+			'telegram_id' => $this->input->post('update_telegram_id')
+		);
+
+		$this->M_user->update_data_telegram(array('id'=>$this->input->post('user_id')), $data);
+		
+		echo json_encode(array("status" => TRUE, "msg" => "Data updated successful"));
+	}
+
 /////////////////////
 
 }

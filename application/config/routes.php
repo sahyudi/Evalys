@@ -14,9 +14,6 @@ $route['logout'] = 'LoginController/logout';
 $route['auth'] = 'LoginController/authentication';
 $route['sio/view'] = 'HomeController/view_sio';
 $route['home'] = 'HomeController/index';
-// $route['form-upload'] = 'UploadController/index';
-
-// $route['test-upload'] = 'Upload/index';
 $route['test-upload'] = 'UploadController/proses_upload';
 
 
@@ -37,6 +34,7 @@ $route['update-user'] = 'UserController/update_user';
 $route['add-id_telegram'] = 'UserController/add_id_telegram';
 $route['delete-telegram/(:any)'] = 'UserController/delete_telegram/$1';
 $route['edit-telegram/(:any)'] = 'UserController/edit_telegram/$1';
+$route['update-telegram'] = 'UserController/update_telegram';
 
 
 //eval
@@ -69,10 +67,3 @@ $route['ojt/add'] = 'OjtController/add_ojt';
 $route['ojt/delete/(:any)'] = 'OjtController/delete_ojt/$1';
 $route['ojt/edit/(:any)'] = 'OjtController/edit_ojt/$1';
 $route['ojt/update'] = 'OjtController/update_ojt';
-
-
-//Bank soal
-// $route['bank'] = 'BankController/index';
-// $route['bank/add'] = 'BankController/add_bank';
-// $route['bank/edit/(:any)'] = 'BankController/edit_bank/$1';
-// $route['bank/update'] = 'BankController/update_bank';
