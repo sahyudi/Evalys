@@ -1,12 +1,12 @@
 <?php
 class M_home extends CI_Model{
 
-	var $ojt = 'public.tb_ojt';
-	var $eval = 'public.tb_eval';
-	var $user = 'public.tb_user';
-	var $value = 'public.tb_value';
-	var $temp = 'public.tb_tmpr';
-	var $end = 'public.tb_end';
+	var $ojt = 'tb_ojt';
+	var $eval = 'tb_eval';
+	var $user = 'tb_user';
+	var $value = 'tb_value';
+	var $temp = 'tb_tmpr';
+	var $end = 'tb_end';
 
 
 	public function __construct(){
@@ -42,7 +42,7 @@ class M_home extends CI_Model{
 	}
 
 	function ambil_bank($id){
-		$query = $this->db->query("SELECT * from public.tb_eval where ojt_id = ".$id."") ;	
+		$query = $this->db->query("SELECT * from tb_eval where ojt_id = ".$id."") ;	
 		return $query->row();
 	}
 	
@@ -50,7 +50,7 @@ class M_home extends CI_Model{
 	function view_data(){
 		$dat = $this->input->post('id_user');
 		$query = $this->db->query("
-							SELECT remark as ojt_name, user_id as nik,  MAX(ex_date) as ex_date FROM public.tb_end
+							SELECT remark as ojt_name, user_id as nik,  MAX(ex_date) as ex_date FROM tb_end
 							WHERE status = 'PASSED' AND user_id = '".$dat."'
 							GROUP BY (remark), user_id
 							
@@ -59,5 +59,3 @@ class M_home extends CI_Model{
 	}
 
 }
-
-?>

@@ -1,11 +1,11 @@
 <?php
 class M_ojt extends CI_Model{
 
-	var $ojt = 'public.tb_ojt';
-	var $eval = 'public.tb_eval';
-	var $user = 'public.tb_user';
-	var $value = 'public.tb_value';
-	var $temp = 'public.tb_tmpr';
+	var $ojt = 'tb_ojt';
+	var $eval = 'tb_eval';
+	var $user = 'tb_user';
+	var $value = 'tb_value';
+	var $temp = 'tb_tmpr';
 
 
 	public function __construct(){
@@ -21,8 +21,8 @@ class M_ojt extends CI_Model{
 
 	// function view_bank(){
 	// 	$query = $this->db->query("
-	// 		SELECT ev.id AS _id, * FROM public.tb_eval ev 
-	// 		INNER JOIN public.tb_ojt oj ON ev.ojt_id = oj.id
+	// 		SELECT ev.id AS _id, * FROM tb_eval ev 
+	// 		INNER JOIN tb_ojt oj ON ev.ojt_id = oj.id
 	// 		WHERE ev.ojt_id = 1
 	// 		");
 	// 	// $query2 = $query->result();
@@ -72,5 +72,3 @@ class M_ojt extends CI_Model{
 }
 
 ///1903990004000266602
-?>
-

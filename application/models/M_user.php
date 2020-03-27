@@ -1,8 +1,8 @@
 <?php
 class M_User extends CI_Model{
 
-	var $user = 'public.tb_user';
-	var $telegram = 'public.tb_telegram';
+	var $user = 'tb_user';
+	var $telegram = 'tb_telegram';
 	
 
 	public function __construct(){
@@ -12,13 +12,13 @@ class M_User extends CI_Model{
 
 	function get_user(){
 		$query = $this->db->query("
-			SELECT * FROM public.tb_user ");
+			SELECT * FROM tb_user ");
 		return $query;
 	}
 
 	function get_telegram(){
 		$query = $this->db->query("
-			SELECT * FROM public.tb_telegram ");
+			SELECT * FROM tb_telegram");
 		return $query;
 	}
 
@@ -48,7 +48,7 @@ class M_User extends CI_Model{
 
 	function edit_user($id){		
 		$query= $this->db->query("
-			SELECT * FROM public.tb_user 
+			SELECT * FROM tb_user 
 			WHERE tb_user.id = '$id'
 			");
 		return $query->row();
@@ -56,7 +56,7 @@ class M_User extends CI_Model{
 
 	function edit_telegram($id){		
 		$query= $this->db->query("
-			SELECT * FROM public.tb_telegram 
+			SELECT * FROM tb_telegram 
 			WHERE tb_telegram.id = '$id'
 			");
 		return $query->row();
@@ -79,5 +79,3 @@ class M_User extends CI_Model{
 	}
 
 }
-
-?>

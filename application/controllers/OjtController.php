@@ -1,18 +1,19 @@
 <?php
 // defined('BASEPATH') OR exit('No direct script access allowed');
 
-class OjtController extends CI_Controller {
+class OjtController extends CI_Controller
+{
 
-	function __construct(){
+	function __construct()
+	{
 		parent::__construct();
 
-			if ($this->session->nik==null){
-				redirect(Site_url('login'));
-			}
+		if ($this->session->nik == null) {
+			redirect(Site_url('login'));
+		}
 
 		$this->load->model('M_ojt');
 		$this->load->helper('url');
-
 	}
 
 	public function index()
@@ -24,19 +25,21 @@ class OjtController extends CI_Controller {
 		$this->load->view('v_input-ojt', $data);
 	}
 
-	function view_bank($ojt_id){
+	function view_bank($ojt_id)
+	{
 		$data =  array(
-				'bank' => $this->db->query("
-							SELECT ev.id AS _id, * FROM public.tb_eval ev 
-							INNER JOIN public.tb_ojt oj ON ev.ojt_id = oj.id
-							WHERE ev.ojt_id = '".$ojt_id."' 
+			'bank' => $this->db->query("
+							SELECT ev.id AS _id, ev.* FROM tb_eval ev 
+							INNER JOIN tb_ojt oj ON ev.ojt_id = oj.id
+							WHERE ev.ojt_id = '" . $ojt_id . "' 
 							ORDER BY _id DESC
-							") 
-				);
-		$this->load->view('v_bank',$data);
+							")
+		);
+		$this->load->view('v_bank', $data);
 	}
 
-	function add_ojt(){
+	function add_ojt()
+	{
 		$data = array(
 			'kode' => $this->input->post('kode'),
 			'name' => $this->input->post('name'),
@@ -49,7 +52,8 @@ class OjtController extends CI_Controller {
 		echo json_encode(array("status" => TRUE, "msg" => "Data registered successful"));
 	}
 
-	function add_bank(){
+	function add_bank()
+	{
 		$data = array(
 			'quest' => $this->input->post('quest'),
 			'ojt_id' => $this->input->post('ojt_id'),
@@ -59,42 +63,41 @@ class OjtController extends CI_Controller {
 		$ojt_id = $this->input->post('ojt_id');
 		$insert_id =  $this->M_ojt->input_bank($data);
 		$this->view_bank($ojt_id);
-		
 	}
 
 
-	function delete_bank($id){
+	function delete_bank($id)
+	{
 		$this->M_ojt->delete_bank($id);
 		$ojt_id = $this->input->post('ojt_id');
 		$this->view_bank($ojt_id);
 	}
 
 
-	function delete_ojt($id){
+	function delete_ojt($id)
+	{
 
-		$this->M_ojt->delete_all_bank($id); 
-		$this->M_ojt->delete_ojt($id); 
+		$this->M_ojt->delete_all_bank($id);
+		$this->M_ojt->delete_ojt($id);
 		echo json_encode(array("status" => TRUE, "msg" => "Data deleted successful"));
-
 	}
 
-	function edit_ojt($id){
-		$data=$this->M_ojt->edit_ojt($id);
+	function edit_ojt($id)
+	{
+		$data = $this->M_ojt->edit_ojt($id);
 		echo json_encode($data);
 	}
 
-	function update_ojt(){
+	function update_ojt()
+	{
 		$data = array(
 			'kode' => $this->input->post('kode'),
 			'name' => $this->input->post('name'),
 			'due_date' => $this->input->post('due_date')
 		);
 
-		$this->M_ojt->update_data(array('id'=>$this->input->post('id')), $data);
-		
+		$this->M_ojt->update_data(array('id' => $this->input->post('id')), $data);
+
 		echo json_encode(array("status" => TRUE, "msg" => "Data updated successful"));
 	}
-
 }
-
-?>
