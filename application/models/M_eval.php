@@ -112,9 +112,8 @@ class M_eval extends CI_Model
 	function get_send_notif()
 	{
 		$query = $this->db->query("
-				SELECT E.id AS _id, E.remark AS ojt_name, * FROM tb_end E
+				SELECT E.id AS _id, E.remark AS ojt_name,E.*, T.* FROM tb_end E
 				JOIN tb_telegram T ON E.user_id = T.emp_nik
-				-- ORDER BY E.id DESC
 				");
 		return $query;
 	}
